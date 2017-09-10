@@ -76,14 +76,11 @@ class Huffman:
                     huffman_str = huffman_str[len(item):]
         return origin_str
 
-    def test(self):
-        text = 'The text to encode:'
+    def huffman(self, text):
         freq_map = self.count_freq(text)
-        print(freq_map)
         nodes = self.create_nodes([item[1] for item in freq_map])
         root = self.create_huffman_tree(nodes)
         codes = self.huffman_encoding(nodes, root)
-        huffman_str = self.encode(text, freq_map, codes)
-        origin_str = self.decode(huffman_str, freq_map, codes)
-        print('Encode result:' + huffman_str)
-        print('Decode result:' + origin_str)
+        encoded_str = self.encode(text, freq_map, codes)
+        deocded_str = self.decode(encoded_str, freq_map, codes)
+        return freq_map, encoded_str, deocded_str

@@ -44,11 +44,25 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="button_add">
-          <property name="text">
-           <string>添加</string>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="bottomMargin">
+           <number>0</number>
           </property>
-         </widget>
+          <item>
+           <widget class="QPushButton" name="button_add">
+            <property name="text">
+             <string>添加</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="button_open">
+            <property name="text">
+             <string>打开</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -130,7 +144,7 @@
          </layout>
         </item>
         <item>
-         <widget class="QTextBrowser" name="edit_text"/>
+         <widget class="QTextEdit" name="edit_text"/>
         </item>
        </layout>
       </item>
@@ -149,17 +163,12 @@
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
-     <string>词汇出现频率</string>
+     <string>检索</string>
     </property>
     <addaction name="action_freq"/>
-   </widget>
-   <widget class="QMenu" name="menu_2">
-    <property name="title">
-     <string>关键词检索</string>
-    </property>
+    <addaction name="action_search"/>
    </widget>
    <addaction name="menu"/>
-   <addaction name="menu_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -175,7 +184,12 @@
   </widget>
   <action name="action_freq">
    <property name="text">
-    <string>???</string>
+    <string>词汇出现频率</string>
+   </property>
+  </action>
+  <action name="action_search">
+   <property name="text">
+    <string>关键词检索</string>
    </property>
   </action>
  </widget>

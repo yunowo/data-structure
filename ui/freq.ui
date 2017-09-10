@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>265</width>
+    <height>406</height>
    </rect>
   </property>
   <property name="font">
@@ -25,8 +25,8 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>250</y>
-     <width>341</width>
+     <y>360</y>
+     <width>221</width>
      <height>32</height>
     </rect>
    </property>
@@ -37,15 +37,24 @@
     <set>QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QTableWidget" name="tableWidget">
+  <widget class="QTableWidget" name="word_table">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>40</y>
-     <width>361</width>
-     <height>201</height>
+     <x>10</x>
+     <y>10</y>
+     <width>241</width>
+     <height>341</height>
     </rect>
    </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustToContents</enum>
+   </property>
+   <attribute name="horizontalHeaderVisible">
+    <bool>false</bool>
+   </attribute>
+   <attribute name="verticalHeaderVisible">
+    <bool>false</bool>
+   </attribute>
   </widget>
  </widget>
  <resources/>

@@ -24,12 +24,12 @@ class MainWindow(QMainWindow, Ui_main_window):
         w.exec_()
 
     def encode_dialog(self):
-        w = EncodeDialog()
+        w = EncodeDialog(self.edit_text.toPlainText())
         w.show()
         w.exec_()
 
     def on_file_change(self, curr, prev):
-        with open(path.join('docs', curr.text()), 'r+') as f:
+        with open(path.join('docs', curr.text()), 'r+', encoding='utf-8') as f:
             text = f.readlines()
             if text:
                 self.edit_text.setText(text[0])
