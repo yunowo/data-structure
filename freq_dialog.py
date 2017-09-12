@@ -1,6 +1,5 @@
-import collections
+from collections import OrderedDict
 from os import walk, path
-
 import re
 from PyQt5.QtWidgets import QDialog, QTableWidgetItem
 
@@ -27,11 +26,11 @@ class FreqDialog(QDialog, Ui_freq_dialog):
                     if word not in d:
                         d[word] = 0
                     d[word] += 1
-        d = collections.OrderedDict(sorted(d.items(), key=lambda t: -t[1]))
+        d = OrderedDict(sorted(d.items(), key=lambda t: -t[1]))
 
         self.word_table.setRowCount(20)
         self.word_table.setColumnCount(2)
-        for i,k in enumerate(d):
+        for i, k in enumerate(d):
             self.word_table.setItem(i, 0, QTableWidgetItem(str(k)))
             self.word_table.setItem(i, 1, QTableWidgetItem(str(d[k])))
         self.word_table.resizeColumnsToContents()

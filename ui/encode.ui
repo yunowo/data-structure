@@ -39,10 +39,22 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextBrowser" name="encoded"/>
+      <widget class="QTextBrowser" name="encoded">
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+        </font>
+       </property>
+      </widget>
      </item>
      <item>
-      <widget class="QTextBrowser" name="decoded"/>
+      <widget class="QTextBrowser" name="decoded">
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+        </font>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QDialogButtonBox" name="buttonBox">

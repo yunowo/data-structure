@@ -20,6 +20,7 @@ class EncodeDialog(QDialog, Ui_encode_dialog):
 
     def show_table(self):
         freq_map, encoded_str, decode_str = Huffman().huffman(self.text_to_encode)
+        freq_map.sort(key=lambda t: -t[1])
         self.freq_table.setRowCount(2)
         self.freq_table.setColumnCount(len(freq_map))
         for i, f in enumerate(freq_map):
