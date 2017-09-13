@@ -2,12 +2,12 @@ from os import path, walk
 
 from PyQt5.QtCore import Qt, QRegExp
 from PyQt5.QtGui import QSyntaxHighlighter, QTextCharFormat
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QFileDialog
 
 from common import input_dialog
 from encode_dialog import EncodeDialog
 from freq_dialog import FreqDialog
-from inverse_index import create_inverted_index
+from inverse_index import InverseIndex
 from ui.generated.main import Ui_main_window
 
 
@@ -17,34 +17,39 @@ class MainWindow(QMainWindow, Ui_main_window):
         self.setupUi(self)
 
         self.action_freq.triggered.connect(self.freq_dialog)
-        self.action_search.triggered.connect(self.search_dialog)
         self.button_encode.clicked.connect(self.encode_dialog)
-        self.button_add.clicked.connect(self.yesno)
+        self.button_add.clicked.connect(self.create_new_file)
+        self.button_open.clicked.connect(self.open_file)
+        self.button_search.clicked.connect(self.search)
+        self.button_refresh_index.clicked.connect(self.refresh_index)
+        self.button_index.clicked.connect(self.search_index)
         self.load_files()
         self.highlighter = Highlighter(self.edit_text.document())
-        self.button_search.clicked.connect(self.search)
+        self.highlighter_index = Highlighter(self.browse_text.document())
 
     def freq_dialog(self):
         w = FreqDialog()
         w.show()
         w.exec_()
 
-    def search_dialog(self):
-        create_inverted_index()
-
     def encode_dialog(self):
         w = EncodeDialog(self.edit_text.toPlainText())
         w.show()
         w.exec_()
 
-    def on_file_change(self, curr, prev):
-        with open(path.join('docs', curr.text()), 'r+', encoding='utf-8') as f:
+    def load_file_into_view(self, file, view):
+        with open(path.join('docs', file), 'r+', encoding='utf-8') as f:
             text = f.readlines()
             if text:
-                self.edit_text.setText(text[0])
+                view.setText(text[0])
             else:
-                self.edit_text.setText('')
-        self.statusbar.showMessage(curr.text())
+                view.setText('')
+        self.statusbar.showMessage(file)
+
+    def on_file_change(self, curr, prev):
+        if not curr:
+            return
+        self.load_file_into_view(curr.text(), self.edit_text)
 
     def load_files(self):
         paths = [fn for fn in next(walk('docs'))[2]]
@@ -54,11 +59,38 @@ class MainWindow(QMainWindow, Ui_main_window):
         self.list_files.currentItemChanged.connect(self.on_file_change)
         self.list_files.show()
 
+    def open_file(self):
+        files = QFileDialog.getOpenFileName(self, '打开文件', '')
+        if files[0]:
+            with open(files[0], 'r') as f:
+                data = f.read()
+                self.edit_text.setText(data)
+
     def search(self):
         q = self.edit_search.text()
         self.highlighter.update_patterns(f"\\b{q}\\b")
 
-    def yesno(self):
+    def refresh_index(self):
+        InverseIndex.create()
+        QMessageBox.information(self, "检索", "检索已完成")
+
+    def on_result_change(self, curr, prev):
+        if not curr:
+            return
+        self.load_file_into_view(curr.text().split()[0], self.browse_text)
+
+    def search_index(self):
+        self.list_results.clear()
+        self.browse_text.clear()
+        result = InverseIndex.search(self.edit_index.text())
+        result.sort(key=lambda p: int(p[0].split('_')[0]))
+        for r in result:
+            self.list_results.addItem(f'{r[0]} #{r[1]}')
+        self.list_results.currentItemChanged.connect(self.on_result_change)
+        self.list_results.show()
+        self.highlighter_index.update_patterns(f"\\b{self.edit_index.text()}\\b")
+
+    def create_new_file(self):
         ok, filename = input_dialog()
         if ok:
             reply = QMessageBox.information(self, "ok", filename, QMessageBox.Yes | QMessageBox.No)

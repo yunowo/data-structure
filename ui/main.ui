@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>703</width>
-    <height>515</height>
+    <width>750</width>
+    <height>550</height>
    </rect>
   </property>
   <property name="font">
@@ -45,6 +45,12 @@
             </property>
             <item>
              <widget class="QListWidget" name="list_files">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>200</width>
@@ -54,10 +60,7 @@
              </widget>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout">
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
+             <layout class="QHBoxLayout" name="container_4">
               <item>
                <widget class="QPushButton" name="button_add">
                 <property name="text">
@@ -205,6 +208,77 @@
        <attribute name="title">
         <string>检索</string>
        </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <layout class="QHBoxLayout" name="container_6">
+          <item>
+           <layout class="QVBoxLayout" name="container_7">
+            <item>
+             <layout class="QHBoxLayout" name="container_8">
+              <item>
+               <widget class="QLineEdit" name="edit_index"/>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="checkbox_match_case_index">
+                <property name="text">
+                 <string>区分大小写</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="button_index">
+                <property name="text">
+                 <string>检索</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="button_refresh_index">
+                <property name="text">
+                 <string>刷新索引</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="container_9">
+              <item>
+               <widget class="QListWidget" name="list_results">
+                <property name="minimumSize">
+                 <size>
+                  <width>200</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>200</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTextBrowser" name="browse_text">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -215,7 +289,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>703</width>
+     <width>750</width>
      <height>23</height>
     </rect>
    </property>
@@ -224,7 +298,6 @@
      <string>检索</string>
     </property>
     <addaction name="action_freq"/>
-    <addaction name="action_search"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
