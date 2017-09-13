@@ -17,6 +17,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         self.setupUi(self)
 
         self.action_freq.triggered.connect(self.freq_dialog)
+        self.button_save.clicked.connect(self.save)
         self.button_encode.clicked.connect(self.encode_dialog)
         self.button_add.clicked.connect(self.create_new_file)
         self.button_open.clicked.connect(self.open_file)
@@ -24,6 +25,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         self.button_refresh_index.clicked.connect(self.refresh_index)
         self.button_index.clicked.connect(self.search_index)
         self.load_files()
+        self.current_file = None
         self.highlighter = Highlighter(self.edit_text.document())
         self.highlighter_index = Highlighter(self.browse_text.document())
 
@@ -50,6 +52,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         if not curr:
             return
         self.load_file_into_view(curr.text(), self.edit_text)
+        self.current_file = curr.text()
 
     def load_files(self):
         paths = [fn for fn in next(walk('docs'))[2]]
@@ -65,6 +68,11 @@ class MainWindow(QMainWindow, Ui_main_window):
             with open(files[0], 'r') as f:
                 data = f.read()
                 self.edit_text.setText(data)
+
+    def save(self):
+        with open(path.join('docs', self.current_file), 'w+', encoding='utf-8') as f:
+            text = self.edit_text.toPlainText().replace('\n', '<br />')
+            f.write(text)
 
     def search(self):
         q = self.edit_search.text()

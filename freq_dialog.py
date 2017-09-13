@@ -19,7 +19,7 @@ class FreqDialog(QDialog, Ui_freq_dialog):
         d = {}
         paths = [fn for fn in next(walk('docs'))[2]]
         for file in paths:
-            with open(path.join('docs', file)) as f:
+            with open(path.join('docs', file), 'r+', encoding='utf-8') as f:
                 text = f.read().lower()
                 text = re.sub("[\",.?!:;/<>()]", "", text)
                 for word in text.split():

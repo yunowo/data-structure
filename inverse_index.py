@@ -9,7 +9,7 @@ class InverseIndex:
         result = {}
         paths = [fn for fn in next(walk('docs'))[2]]
         for p in paths:
-            with open(path.join('docs', p), 'r') as f:
+            with open(path.join('docs', p), 'r', encoding='utf-8') as f:
                 original = f.read()
                 filtered = re.sub("[\",.?!:;/<>()]", "", original)
                 words = filtered.split()
@@ -25,12 +25,12 @@ class InverseIndex:
                     else:
                         result[w] = index
 
-        with open('my_index.txt', 'w') as f:
+        with open('docs_index.txt', 'w') as f:
             f.writelines(str(result))
 
     @staticmethod
     def search(query):
-        with open('my_index.txt', 'r') as f:
+        with open('docs_index.txt', 'r', encoding='utf-8') as f:
             index = ast.literal_eval(f.readlines()[0])
             result = []
             for k in index.keys():
