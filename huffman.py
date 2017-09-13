@@ -13,8 +13,8 @@ class Node:
 
 
 class Huffman:
-    # 统计字符出现频率，生成映射表
-    def count_freq(self, text):
+    @staticmethod
+    def count_freq(text):
         chars = []
         freq_map = []
         for c in text:
@@ -24,12 +24,8 @@ class Huffman:
                 freq_map.append(freq)
         return freq_map
 
-    # 创建叶子节点
-    def create_nodes(self, freqs):
-        return [Node(freq) for freq in freqs]
-
-    # 创建Huffman树
-    def create_huffman_tree(self, nodes):
+    @staticmethod
+    def create_huffman_tree(nodes):
         queue = nodes[:]
         while len(queue) > 1:
             queue.sort(key=lambda item: item.freq)
@@ -44,8 +40,8 @@ class Huffman:
         queue[0].father = None
         return queue[0]
 
-    # Huffman编码
-    def huffman_encoding(self, nodes, root):
+    @staticmethod
+    def huffman_encoding(nodes, root):
         codes = [''] * len(nodes)
         for i in range(len(nodes)):
             node_tmp = nodes[i]
@@ -57,8 +53,8 @@ class Huffman:
                 node_tmp = node_tmp.father
         return codes
 
-    # 编码整个字符串
-    def encode(self, text, freq_map, codes):
+    @staticmethod
+    def encode(text, freq_map, codes):
         huffman_str = ''
         for char in text:
             for index, item in enumerate(freq_map):
@@ -66,8 +62,8 @@ class Huffman:
                     huffman_str += codes[index]
         return huffman_str
 
-    # 解码整个字符串
-    def decode(self, huffman_str, freq_map, codes):
+    @staticmethod
+    def decode(huffman_str, freq_map, codes):
         origin_str = ''
         while huffman_str != '':
             for index, item in enumerate(codes):
@@ -78,7 +74,7 @@ class Huffman:
 
     def huffman(self, text):
         freq_map = self.count_freq(text)
-        nodes = self.create_nodes([item[1] for item in freq_map])
+        nodes = [Node(freq) for freq in [item[1] for item in freq_map]]
         root = self.create_huffman_tree(nodes)
         codes = self.huffman_encoding(nodes, root)
         encoded_str = self.encode(text, freq_map, codes)

@@ -1,5 +1,6 @@
 class KMP:
-    def partial(self, pattern):
+    @staticmethod
+    def partial(pattern):
         """ Calculate partial match table: String -> [Int]"""
         ret = [0]
 
