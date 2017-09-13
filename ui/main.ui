@@ -27,152 +27,176 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
-     <layout class="QHBoxLayout" name="container">
-      <item>
-       <layout class="QVBoxLayout" name="left">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetDefaultConstraint</enum>
-        </property>
-        <item>
-         <widget class="QListWidget" name="list_files">
-          <property name="maximumSize">
-           <size>
-            <width>200</width>
-            <height>16777215</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_edit">
+       <attribute name="title">
+        <string>编辑</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <layout class="QHBoxLayout" name="container">
           <item>
-           <widget class="QPushButton" name="button_add">
-            <property name="text">
-             <string>添加</string>
+           <layout class="QVBoxLayout" name="left">
+            <property name="sizeConstraint">
+             <enum>QLayout::SetDefaultConstraint</enum>
             </property>
-           </widget>
+            <item>
+             <widget class="QListWidget" name="list_files">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="button_add">
+                <property name="text">
+                 <string>添加</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="button_open">
+                <property name="text">
+                 <string>打开</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
           </item>
           <item>
-           <widget class="QPushButton" name="button_open">
-            <property name="text">
-             <string>打开</string>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="right">
+            <item>
+             <layout class="QHBoxLayout" name="container_5">
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="button_save">
+                <property name="text">
+                 <string>保存</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/icon/img/save.png</normalon>
+                 </iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="button_encode">
+                <property name="text">
+                 <string>编码</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="container_2" stretch="0,0,0,0,0,0">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLineEdit" name="edit_search"/>
+              </item>
+              <item>
+               <widget class="QToolButton" name="button_search_clear">
+                <property name="text">
+                 <string>X</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="button_search">
+                <property name="text">
+                 <string>查找</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="checkbox_match_case">
+                <property name="text">
+                 <string>区分大小写</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="checkbox_regex">
+                <property name="text">
+                 <string>正则表达式</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="checkbox_words">
+                <property name="text">
+                 <string>单词</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="container_3" stretch="0,0,0">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLineEdit" name="edit_replace"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="button_replace">
+                <property name="text">
+                 <string>替换</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="button_replace_all">
+                <property name="text">
+                 <string>替换所有</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QTextEdit" name="edit_text"/>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
        </layout>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="right">
-        <item>
-         <layout class="QHBoxLayout" name="container_5">
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="button_save">
-            <property name="text">
-             <string>保存</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="button_encode">
-            <property name="text">
-             <string>编码</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="container_2" stretch="0,0,0,0,0,0">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QLineEdit" name="edit_search"/>
-          </item>
-          <item>
-           <widget class="QToolButton" name="button_search_clear">
-            <property name="text">
-             <string>X</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="button_search">
-            <property name="text">
-             <string>查找</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="checkbox_match_case">
-            <property name="text">
-             <string>区分大小写</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="checkbox_regex">
-            <property name="text">
-             <string>正则表达式</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="checkbox_words">
-            <property name="text">
-             <string>单词</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="container_3" stretch="0,0,0">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QLineEdit" name="edit_replace"/>
-          </item>
-          <item>
-           <widget class="QPushButton" name="button_replace">
-            <property name="text">
-             <string>替换</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="button_replace_all">
-            <property name="text">
-             <string>替换所有</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QTextEdit" name="edit_text"/>
-        </item>
-       </layout>
-      </item>
-     </layout>
+      </widget>
+      <widget class="QWidget" name="tab_index">
+       <attribute name="title">
+        <string>检索</string>
+       </attribute>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -192,20 +216,16 @@
     <addaction name="action_freq"/>
     <addaction name="action_search"/>
    </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>帮助</string>
+    </property>
+    <addaction name="action_about"/>
+   </widget>
    <addaction name="menu"/>
+   <addaction name="menu_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <widget class="QToolBar" name="toolBar">
-   <property name="windowTitle">
-    <string>toolBar</string>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
   <action name="action_freq">
    <property name="text">
     <string>词汇出现频率</string>
@@ -216,7 +236,14 @@
     <string>关键词检索</string>
    </property>
   </action>
+  <action name="action_about">
+   <property name="text">
+    <string>关于</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>

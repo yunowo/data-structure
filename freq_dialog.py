@@ -4,7 +4,7 @@ import re
 from PyQt5.QtWidgets import QDialog, QTableWidgetItem
 
 from common import dialog_flags
-from ui.freq import Ui_freq_dialog
+from ui.generated.freq import Ui_freq_dialog
 
 
 class FreqDialog(QDialog, Ui_freq_dialog):
@@ -21,7 +21,7 @@ class FreqDialog(QDialog, Ui_freq_dialog):
         for file in paths:
             with open(path.join('docs', file)) as f:
                 text = f.read().lower()
-                text = re.sub("[\",./<>]", "", text)
+                text = re.sub("[\",.?!:;/<>()]", "", text)
                 for word in text.split():
                     if word not in d:
                         d[word] = 0

@@ -1,10 +1,8 @@
-from PyQt5 import QtGui, QtWidgets
-
-from PyQt5.QtWidgets import QDialog, QTableWidgetItem, QHeaderView
+from PyQt5.QtWidgets import QDialog, QTableWidgetItem
 
 from common import dialog_flags
 from huffman import Huffman
-from ui.encode import Ui_encode_dialog
+from ui.generated.encode import Ui_encode_dialog
 
 
 class EncodeDialog(QDialog, Ui_encode_dialog):

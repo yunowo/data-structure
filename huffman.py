@@ -82,5 +82,5 @@ class Huffman:
         root = self.create_huffman_tree(nodes)
         codes = self.huffman_encoding(nodes, root)
         encoded_str = self.encode(text, freq_map, codes)
-        deocded_str = self.decode(encoded_str, freq_map, codes)
-        return freq_map, encoded_str, deocded_str
+        decoded_str = self.decode(encoded_str, freq_map, codes)
+        return freq_map, encoded_str, decoded_str

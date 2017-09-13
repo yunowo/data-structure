@@ -7,7 +7,8 @@ from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from common import input_dialog
 from encode_dialog import EncodeDialog
 from freq_dialog import FreqDialog
-from ui.main import Ui_main_window
+from inverse_index import create_inverted_index
+from ui.generated.main import Ui_main_window
 
 
 class MainWindow(QMainWindow, Ui_main_window):
@@ -16,6 +17,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         self.setupUi(self)
 
         self.action_freq.triggered.connect(self.freq_dialog)
+        self.action_search.triggered.connect(self.search_dialog)
         self.button_encode.clicked.connect(self.encode_dialog)
         self.button_add.clicked.connect(self.yesno)
         self.load_files()
@@ -26,6 +28,9 @@ class MainWindow(QMainWindow, Ui_main_window):
         w = FreqDialog()
         w.show()
         w.exec_()
+
+    def search_dialog(self):
+        create_inverted_index()
 
     def encode_dialog(self):
         w = EncodeDialog(self.edit_text.toPlainText())
