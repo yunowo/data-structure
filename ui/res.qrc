@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icon">
     <file>img/save.png</file>
+    <file>img/clear.png</file>
+    <file>img/search.png</file>
   </qresource>
 </RCC>

@@ -118,7 +118,12 @@
               <item>
                <widget class="QToolButton" name="button_search_clear">
                 <property name="text">
-                 <string>X</string>
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/icon/img/clear.png</normalon>
+                 </iconset>
                 </property>
                </widget>
               </item>
@@ -126,6 +131,11 @@
                <widget class="QPushButton" name="button_search">
                 <property name="text">
                  <string>查找</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/icon/img/search.png</normalon>
+                 </iconset>
                 </property>
                </widget>
               </item>
