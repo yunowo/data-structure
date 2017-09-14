@@ -1,14 +1,31 @@
 import ast
 import re
 from os import walk, path
+from PyQt5.QtWidgets import QProgressDialog, QApplication, QMessageBox
+
+import common
 
 
 class InverseIndex:
+    def progress_dialog(self):
+        d = QProgressDialog(None, common.dialog_flags)
+        d.setWindowTitle("索引中...")
+        d.setFont(common.font())
+        d.show()
+        self.create(d)
+
     @staticmethod
-    def create():
+    def create(dialog):
         result = {}
         paths = [fn for fn in next(walk('docs'))[2]]
-        for p in paths:
+        dialog.setRange(0, len(paths))
+        for j, p in enumerate(paths):
+            dialog.setValue(j)
+            dialog.setLabelText(p)
+            QApplication.processEvents()
+            if dialog.wasCanceled():
+                break
+
             with open(path.join('docs', p), 'r', encoding='utf-8') as f:
                 original = f.read()
                 filtered = re.sub("[\",.?!:;/<>()]", "", original)
@@ -25,8 +42,10 @@ class InverseIndex:
                     else:
                         result[w] = index
 
-        with open('docs_index.txt', 'w') as f:
+        with open('docs_index.txt', 'w', encoding='utf-8') as f:
             f.writelines(str(result))
+        dialog.close()
+        QMessageBox.information(dialog, "检索", "检索已完成")
 
     @staticmethod
     def search(query):

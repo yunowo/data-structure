@@ -79,8 +79,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         self.highlighter.update_patterns(f"\\b{q}\\b")
 
     def refresh_index(self):
-        InverseIndex.create()
-        QMessageBox.information(self, "检索", "检索已完成")
+        InverseIndex().progress_dialog()
 
     def on_result_change(self, curr, prev):
         if not curr:
@@ -101,6 +100,8 @@ class MainWindow(QMainWindow, Ui_main_window):
     def create_new_file(self):
         ok, filename = input_dialog()
         if ok:
+            with open(path.join('docs', filename), 'w+', encoding='utf-8') as f:
+                f.writelines('')
             reply = QMessageBox.information(self, "ok", filename, QMessageBox.Yes | QMessageBox.No)
 
 

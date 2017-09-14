@@ -314,11 +314,6 @@
     <string>词汇出现频率</string>
    </property>
   </action>
-  <action name="action_search">
-   <property name="text">
-    <string>关键词检索</string>
-   </property>
-  </action>
   <action name="action_about">
    <property name="text">
     <string>关于</string>
