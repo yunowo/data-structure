@@ -165,8 +165,6 @@ class Ui_main_window(object):
         main_window.setStatusBar(self.statusbar)
         self.action_freq = QtWidgets.QAction(main_window)
         self.action_freq.setObjectName("action_freq")
-        self.action_search = QtWidgets.QAction(main_window)
-        self.action_search.setObjectName("action_search")
         self.action_about = QtWidgets.QAction(main_window)
         self.action_about.setObjectName("action_about")
         self.menu.addAction(self.action_freq)
@@ -199,7 +197,6 @@ class Ui_main_window(object):
         self.menu.setTitle(_translate("main_window", "检索"))
         self.menu_2.setTitle(_translate("main_window", "帮助"))
         self.action_freq.setText(_translate("main_window", "词汇出现频率"))
-        self.action_search.setText(_translate("main_window", "关键词检索"))
         self.action_about.setText(_translate("main_window", "关于"))
 
 from . import res_rc

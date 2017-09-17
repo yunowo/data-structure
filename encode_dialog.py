@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QDialog, QTableWidgetItem
 
 from common import dialog_flags
 from huffman import Huffman
+from huffman_tree import HuffmanTree
 from ui.generated.encode import Ui_encode_dialog
 
 
@@ -11,13 +12,17 @@ class EncodeDialog(QDialog, Ui_encode_dialog):
         self.setupUi(self)
         self.setWindowFlags(dialog_flags)
 
+        self.button_graph.clicked.connect(self.show_graph)
+
         self.text_to_encode = text
         if text == "":
             return
+        self.root = None
+        self.nodes = None
         self.show_table()
 
     def show_table(self):
-        freq_map, encoded_str, decode_str = Huffman().huffman(self.text_to_encode)
+        freq_map, encoded_str, decode_str, self.root, self.nodes = Huffman().huffman(self.text_to_encode)
         freq_map.sort(key=lambda t: -t[1])
         self.freq_table.setRowCount(2)
         self.freq_table.setColumnCount(len(freq_map))
@@ -29,3 +34,6 @@ class EncodeDialog(QDialog, Ui_encode_dialog):
 
         self.encoded.setText(encoded_str)
         self.decoded.setText(decode_str)
+
+    def show_graph(self):
+        HuffmanTree(self.root, self.nodes)

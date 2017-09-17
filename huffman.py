@@ -1,9 +1,10 @@
 class Node:
-    def __init__(self, freq):
+    def __init__(self, item):
         self.left = None
         self.right = None
         self.father = None
-        self.freq = freq
+        self.char = item[0]
+        self.freq = item[1]
 
     def is_left(self):
         return self.father.left == self
@@ -31,7 +32,7 @@ class Huffman:
             queue.sort(key=lambda item: item.freq)
             node_left = queue.pop(0)
             node_right = queue.pop(0)
-            node_father = Node(node_left.freq + node_right.freq)
+            node_father = Node((None, node_left.freq + node_right.freq))
             node_father.left = node_left
             node_father.right = node_right
             node_left.father = node_father
@@ -74,9 +75,9 @@ class Huffman:
 
     def huffman(self, text):
         freq_map = self.count_freq(text)
-        nodes = [Node(freq) for freq in [item[1] for item in freq_map]]
+        nodes = [Node(item) for item in freq_map]
         root = self.create_huffman_tree(nodes)
         codes = self.huffman_encoding(nodes, root)
         encoded_str = self.encode(text, freq_map, codes)
         decoded_str = self.decode(encoded_str, freq_map, codes)
-        return freq_map, encoded_str, decoded_str
+        return freq_map, encoded_str, decoded_str, root, nodes

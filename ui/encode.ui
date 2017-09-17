@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>encode_dialog</class>
  <widget class="QDialog" name="encode_dialog">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -36,6 +39,18 @@
        <attribute name="verticalHeaderVisible">
         <bool>false</bool>
        </attribute>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="button_graph">
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+        </font>
+       </property>
+       <property name="text">
+        <string>哈夫曼树</string>
+       </property>
       </widget>
      </item>
      <item>

@@ -11,6 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_encode_dialog(object):
     def setupUi(self, encode_dialog):
         encode_dialog.setObjectName("encode_dialog")
+        encode_dialog.setWindowModality(QtCore.Qt.WindowModal)
         encode_dialog.resize(521, 481)
         encode_dialog.setModal(True)
         self.gridLayout = QtWidgets.QGridLayout(encode_dialog)
@@ -26,6 +27,12 @@ class Ui_encode_dialog(object):
         self.freq_table.horizontalHeader().setVisible(False)
         self.freq_table.verticalHeader().setVisible(False)
         self.verticalLayout.addWidget(self.freq_table)
+        self.button_graph = QtWidgets.QPushButton(encode_dialog)
+        font = QtGui.QFont()
+        font.setFamily("微软雅黑")
+        self.button_graph.setFont(font)
+        self.button_graph.setObjectName("button_graph")
+        self.verticalLayout.addWidget(self.button_graph)
         self.encoded = QtWidgets.QTextBrowser(encode_dialog)
         font = QtGui.QFont()
         font.setFamily("微软雅黑")
@@ -56,4 +63,5 @@ class Ui_encode_dialog(object):
     def retranslateUi(self, encode_dialog):
         _translate = QtCore.QCoreApplication.translate
         encode_dialog.setWindowTitle(_translate("encode_dialog", "编码"))
+        self.button_graph.setText(_translate("encode_dialog", "哈夫曼树"))
 
