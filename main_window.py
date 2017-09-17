@@ -4,6 +4,7 @@ from PyQt5.QtCore import Qt, QRegExp
 from PyQt5.QtGui import QSyntaxHighlighter, QTextCharFormat
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QFileDialog
 
+from about_dialog import AboutDialog
 from common import input_dialog
 from encode_dialog import EncodeDialog
 from freq_dialog import FreqDialog
@@ -17,6 +18,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         self.setupUi(self)
 
         self.action_freq.triggered.connect(self.freq_dialog)
+        self.action_about.triggered.connect(self.about_dialog)
         self.button_save.clicked.connect(self.save)
         self.button_encode.clicked.connect(self.encode_dialog)
         self.button_add.clicked.connect(self.create_new_file)
@@ -31,6 +33,11 @@ class MainWindow(QMainWindow, Ui_main_window):
 
     def freq_dialog(self):
         w = FreqDialog()
+        w.show()
+        w.exec_()
+
+    def about_dialog(self):
+        w = AboutDialog()
         w.show()
         w.exec_()
 

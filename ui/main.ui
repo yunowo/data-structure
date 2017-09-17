@@ -96,6 +96,12 @@
                   <normalon>:/icon/img/save.png</normalon>
                  </iconset>
                 </property>
+                <property name="iconSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
                </widget>
               </item>
               <item>
@@ -116,10 +122,26 @@
                <number>0</number>
               </property>
               <item>
-               <widget class="QLineEdit" name="edit_search"/>
+               <widget class="QLineEdit" name="edit_search">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="dragEnabled">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QToolButton" name="button_search_clear">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string/>
                 </property>
@@ -127,6 +149,12 @@
                  <iconset>
                   <normalon>:/icon/img/clear.png</normalon>
                  </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -139,6 +167,12 @@
                  <iconset>
                   <normalon>:/icon/img/search.png</normalon>
                  </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
                 </property>
                </widget>
               </item>
