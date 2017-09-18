@@ -1,4 +1,4 @@
-from os import path, walk
+from os import path, walk, getcwd
 
 from PyQt5.QtCore import Qt, QRegExp
 from PyQt5.QtGui import QSyntaxHighlighter, QTextCharFormat
@@ -31,6 +31,13 @@ class MainWindow(QMainWindow, Ui_main_window):
         self.highlighter = Highlighter(self.edit_text.document())
         self.highlighter_index = Highlighter(self.browse_text.document())
 
+    def closeEvent(self, event):
+        reply = QMessageBox.question(self, '确认', "真的要退出？", QMessageBox.Yes, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
+
     def freq_dialog(self):
         w = FreqDialog()
         w.show()
@@ -53,7 +60,7 @@ class MainWindow(QMainWindow, Ui_main_window):
                 view.setText(text[0])
             else:
                 view.setText('')
-        self.statusbar.showMessage(file)
+        self.statusbar.showMessage(path.join(getcwd(), 'docs', file))
 
     def on_file_change(self, curr, prev):
         if not curr:
@@ -99,7 +106,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         result = InverseIndex.search(self.edit_index.text())
         result.sort(key=lambda p: int(p[0].split('_')[0]))
         for r in result:
-            self.list_results.addItem(f'{r[0]} #{r[1]}')
+            self.list_results.addItem(f'{r[0]}\t#{r[1]}')
         self.list_results.currentItemChanged.connect(self.on_result_change)
         self.list_results.show()
         self.highlighter_index.update_patterns(f"\\b{self.edit_index.text()}\\b")

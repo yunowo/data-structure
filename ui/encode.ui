@@ -24,6 +24,12 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QTableWidget" name="freq_table">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -63,16 +69,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextBrowser" name="decoded">
-       <property name="font">
-        <font>
-         <family>微软雅黑</family>
-        </font>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonbox">
        <property name="font">
         <font>
          <family>微软雅黑</family>
@@ -82,7 +79,10 @@
         <enum>Qt::Horizontal</enum>
        </property>
        <property name="standardButtons">
-        <set>QDialogButtonBox::Ok</set>
+        <set>QDialogButtonBox::Ok|QDialogButtonBox::Save</set>
+       </property>
+       <property name="centerButtons">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -90,10 +90,12 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>buttonbox</sender>
    <signal>accepted()</signal>
    <receiver>encode_dialog</receiver>
    <slot>accept()</slot>
@@ -109,7 +111,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>buttonbox</sender>
    <signal>rejected()</signal>
    <receiver>encode_dialog</receiver>
    <slot>reject()</slot>
