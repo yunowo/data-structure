@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QDialog, QTableWidgetItem, QDialogButtonBox
+from PyQt5.QtWidgets import QDialog, QTableWidgetItem, QDialogButtonBox, QMessageBox
 from os import path
 
 from algorithm.huffman import Huffman
@@ -45,8 +45,10 @@ class EncodeDialog(QDialog, Ui_encode_dialog):
         HuffmanTree(self.root, self.nodes)
 
     def save_encoded(self):
-        with open(path.join('docs', f'{self.filename.split(".")[0]}_encoded.txt'), 'w+', encoding='utf-8') as f:
-            f.writelines('encoding=huffman <br />')
+        file = f'{self.filename.split(".")[0]}_encoded.txt'
+        with open(path.join('docs', file), 'w+', encoding='utf-8') as f:
+            f.writelines('encoding=huffman<br />')
             t = {c: t[1] for c, t in self.freq_map.items()}
             f.writelines(f'codes={t} <br />')
-            f.writelines(f'encoded={self.encoded_str} <br />')
+            f.writelines(f'encoded={self.encoded_str}<br />')
+        QMessageBox.information(self, '编码', f"编码后的文件已保存到 {file}", QMessageBox.Ok)

@@ -3,6 +3,8 @@ from os import walk, path, getcwd
 
 from PyQt5.QtWidgets import QTableWidgetItem
 
+from algorithm.huffman import Huffman
+
 
 class MainDecodeTab:
     def __init__(self, main_window):
@@ -18,20 +20,20 @@ class MainDecodeTab:
                 self.w.browse_encoded.setText(text[0])
             else:
                 self.w.browse_encoded.setText('')
-            if 'encoded' in file:
-                f.seek(0)
-                data = f.readlines()[0].split('<br />')
-                codes = ast.literal_eval(data[1].split('=')[1])
-                encoded = data[2].split('=')[1]
-                self.w.code_table.setColumnCount(len(codes))
-                self.w.code_table.setRowCount(2)
-                i = 0
-                for k, v in codes.items():
-                    self.w.code_table.setItem(0, i, QTableWidgetItem(k))
-                    self.w.code_table.setItem(1, i, QTableWidgetItem(v))
-                    i += 1
-                self.w.code_table.resizeColumnsToContents()
-                self.w.browse_decoded.setText(encoded)
+
+            f.seek(0)
+            data = f.readlines()[0].split('<br />')
+            codes = ast.literal_eval(data[1].split('=')[1])
+            encoded = data[2].split('=')[1]
+
+            sorted_codes = sorted(codes.items(), key=lambda t: len(t[1]))
+            self.w.code_table.setColumnCount(len(sorted_codes))
+            self.w.code_table.setRowCount(2)
+            for i, t in enumerate(sorted_codes):
+                self.w.code_table.setItem(0, i, QTableWidgetItem(t[0]))
+                self.w.code_table.setItem(1, i, QTableWidgetItem(t[1]))
+            self.w.code_table.resizeColumnsToContents()
+            self.w.browse_decoded.setText(Huffman.decode(encoded, codes))
         self.w.statusbar.showMessage(path.join(getcwd(), 'docs', file))
 
     def on_file_change(self, curr, prev):
@@ -41,6 +43,7 @@ class MainDecodeTab:
         self.current_file = curr.text()
 
     def load_files(self):
+        self.w.list_encoded.clear()
         paths = [fn for fn in next(walk('docs'))[2]]
         paths.sort(key=lambda p: int(p.split('_')[0]))
         paths = filter(lambda p: 'encoded' in p, paths)

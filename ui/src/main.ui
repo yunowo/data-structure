@@ -27,9 +27,9 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="1" column="0">
-     <widget class="QTabWidget" name="tabWidget">
+     <widget class="QTabWidget" name="tabs_container">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_edit">
        <attribute name="title">
@@ -192,6 +192,9 @@
                 <property name="text">
                  <string>区分大小写</string>
                 </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
                </widget>
               </item>
               <item>
@@ -341,6 +344,12 @@
             <enum>Qt::Vertical</enum>
            </property>
            <widget class="QTableWidget" name="code_table">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>80</height>
+             </size>
+            </property>
             <property name="sizeAdjustPolicy">
              <enum>QAbstractScrollArea::AdjustToContents</enum>
             </property>

@@ -61,11 +61,10 @@ class Huffman:
     def decode(huffman_str, freq_map):
         origin_str = ''
         while huffman_str != '':
-            # TODO
-            for index, item in enumerate(freq_map):
-                if item in huffman_str and huffman_str.index(item) == 0:
-                    origin_str += freq_map[index][0]
-                    huffman_str = huffman_str[len(item):]
+            for k, v in freq_map.items():
+                if v in huffman_str and huffman_str.index(v) == 0:
+                    origin_str += k
+                    huffman_str = huffman_str[len(v):]
         return origin_str
 
     def huffman(self, text):
@@ -74,5 +73,4 @@ class Huffman:
         root = self.create_huffman_tree(nodes)
         freq_map = self.huffman_encoding(nodes, root, freq_map)
         encoded_str = self.encode(text, freq_map)
-        # decoded_str = self.decode(encoded_str, freq_map)
         return freq_map, root, nodes, encoded_str

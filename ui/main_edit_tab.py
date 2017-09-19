@@ -41,6 +41,7 @@ class MainEditTab:
         self.current_file = curr.text()
 
     def load_files(self):
+        self.w.list_files.clear()
         paths = [fn for fn in next(walk('docs'))[2]]
         paths.sort(key=lambda p: int(p.split('_')[0]))
         paths = filter(lambda p: 'encoded' not in p, paths)
