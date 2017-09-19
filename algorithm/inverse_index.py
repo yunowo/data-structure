@@ -3,14 +3,14 @@ import re
 from os import walk, path
 from PyQt5.QtWidgets import QProgressDialog, QApplication, QMessageBox
 
-import common
+from ui.common import dialog_flags, font
 
 
 class InverseIndex:
     def progress_dialog(self):
-        d = QProgressDialog(None, common.dialog_flags)
+        d = QProgressDialog(None, dialog_flags)
         d.setWindowTitle("索引中...")
-        d.setFont(common.font())
+        d.setFont(font())
         d.show()
         self.create(d)
 

@@ -1,10 +1,10 @@
 from PyQt5.QtWidgets import QDialog, QTableWidgetItem, QDialogButtonBox
 from os import path
 
-from .common import dialog_flags
-from ..algorithm.huffman import Huffman
-from ..algorithm.huffman_tree import HuffmanTree
-from .generated.encode import Ui_encode_dialog
+from algorithm.huffman import Huffman
+from algorithm.huffman_tree import HuffmanTree
+from ui.common import dialog_flags
+from ui.generated.encode import Ui_encode_dialog
 
 
 class EncodeDialog(QDialog, Ui_encode_dialog):
