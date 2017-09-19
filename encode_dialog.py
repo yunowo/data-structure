@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QDialog, QTableWidgetItem
+from PyQt5.QtWidgets import QDialog, QTableWidgetItem, QDialogButtonBox
+from os import path
 
 from common import dialog_flags
 from huffman import Huffman
@@ -7,33 +8,45 @@ from ui.generated.encode import Ui_encode_dialog
 
 
 class EncodeDialog(QDialog, Ui_encode_dialog):
-    def __init__(self, text):
+    def __init__(self, filename, text):
         super(EncodeDialog, self).__init__()
         self.setupUi(self)
         self.setWindowFlags(dialog_flags)
 
         self.button_graph.clicked.connect(self.show_graph)
+        self.buttonbox.button(QDialogButtonBox.Ok).clicked.connect(self.accept)
+        self.buttonbox.button(QDialogButtonBox.Save).clicked.connect(self.save_encoded)
 
+        self.filename = filename
         self.text_to_encode = text
-        if text == "":
+        if text == '':
             return
+        self.freq_map = None
         self.root = None
         self.nodes = None
+        self.encoded_str = ''
         self.show_table()
 
     def show_table(self):
-        freq_map, encoded_str, decode_str, self.root, self.nodes = Huffman().huffman(self.text_to_encode)
-        freq_map.sort(key=lambda t: -t[1])
-        self.freq_table.setRowCount(2)
-        self.freq_table.setColumnCount(len(freq_map))
-        for i, f in enumerate(freq_map):
-            char, num = f
-            self.freq_table.setItem(0, i, QTableWidgetItem(char))
+        self.freq_map, self.root, self.nodes, self.encoded_str = Huffman().huffman(self.text_to_encode)
+        s = sorted(self.freq_map.items(), key=lambda t: -t[1][0])
+        self.freq_table.setRowCount(3)
+        self.freq_table.setColumnCount(len(s))
+        for i, t in enumerate(s):
+            num, freq = t[1]
+            self.freq_table.setItem(0, i, QTableWidgetItem(t[0]))
             self.freq_table.setItem(1, i, QTableWidgetItem(str(num)))
+            self.freq_table.setItem(2, i, QTableWidgetItem(freq))
         self.freq_table.resizeColumnsToContents()
 
-        self.encoded.setText(encoded_str)
-        self.decoded.setText(decode_str)
+        self.encoded.setText(self.encoded_str)
 
     def show_graph(self):
         HuffmanTree(self.root, self.nodes)
+
+    def save_encoded(self):
+        with open(path.join('docs', f'{self.filename.split(".")[0]}_encoded.txt'), 'w+', encoding='utf-8') as f:
+            f.writelines('encoding=huffman <br />')
+            t = {c: t[1] for c, t in self.freq_map.items()}
+            f.writelines(f'codes={t} <br />')
+            f.writelines(f'encoded={self.encoded_str} <br />')

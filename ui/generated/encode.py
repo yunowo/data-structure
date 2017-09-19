@@ -56,8 +56,6 @@ class Ui_encode_dialog(object):
         self.gridLayout.addLayout(self.verticalLayout, 0, 0, 1, 1)
 
         self.retranslateUi(encode_dialog)
-        self.buttonbox.accepted.connect(encode_dialog.accept)
-        self.buttonbox.rejected.connect(encode_dialog.reject)
         QtCore.QMetaObject.connectSlotsByName(encode_dialog)
 
     def retranslateUi(self, encode_dialog):

@@ -29,7 +29,7 @@
     <item row="1" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_edit">
        <attribute name="title">
@@ -330,8 +330,36 @@
         <string>解码</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="1">
+         <widget class="QSplitter" name="splitter_1">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QTextBrowser" name="browse_encoded"/>
+          <widget class="QSplitter" name="splitter_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <widget class="QTableWidget" name="code_table">
+            <property name="sizeAdjustPolicy">
+             <enum>QAbstractScrollArea::AdjustToContents</enum>
+            </property>
+            <property name="rowCount">
+             <number>0</number>
+            </property>
+            <attribute name="horizontalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+           </widget>
+           <widget class="QTextBrowser" name="browse_decoded"/>
+          </widget>
+         </widget>
+        </item>
         <item row="0" column="0">
-         <widget class="QTreeView" name="list_encoded">
+         <widget class="QListWidget" name="list_encoded">
           <property name="minimumSize">
            <size>
             <width>200</width>
@@ -344,21 +372,6 @@
             <height>16777215</height>
            </size>
           </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QSplitter" name="splitter_1">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <widget class="QTextBrowser" name="browse_encoded"/>
-          <widget class="QSplitter" name="splitter_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <widget class="QTableView" name="freq_table"/>
-           <widget class="QTextBrowser" name="browser_decoded"/>
-          </widget>
          </widget>
         </item>
        </layout>

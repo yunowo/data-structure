@@ -1,14 +1,14 @@
+import ast
 from os import path, walk, getcwd
 
-from PyQt5.QtCore import Qt, QRegExp
-from PyQt5.QtGui import QSyntaxHighlighter, QTextCharFormat
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem
 
 from about_dialog import AboutDialog
 from common import input_dialog
 from encode_dialog import EncodeDialog
 from freq_dialog import FreqDialog
 from inverse_index import InverseIndex
+from search_highlighter import SearchHighlighter
 from ui.generated.main import Ui_main_window
 
 
@@ -27,9 +27,10 @@ class MainWindow(QMainWindow, Ui_main_window):
         self.button_refresh_index.clicked.connect(self.refresh_index)
         self.button_index.clicked.connect(self.search_index)
         self.load_files()
+        self.load_files_encoded()
         self.current_file = None
-        self.highlighter = Highlighter(self.edit_text.document())
-        self.highlighter_index = Highlighter(self.browse_text.document())
+        self.highlighter = SearchHighlighter(self.edit_text.document())
+        self.highlighter_index = SearchHighlighter(self.browse_text.document())
 
     def closeEvent(self, event):
         reply = QMessageBox.question(self, '确认', "真的要退出？", QMessageBox.Yes, QMessageBox.No)
@@ -49,7 +50,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         w.exec_()
 
     def encode_dialog(self):
-        w = EncodeDialog(self.edit_text.toPlainText())
+        w = EncodeDialog(self.current_file, self.edit_text.toPlainText())
         w.show()
         w.exec_()
 
@@ -60,6 +61,21 @@ class MainWindow(QMainWindow, Ui_main_window):
                 view.setText(text[0])
             else:
                 view.setText('')
+            if 'encoded' in file:
+                f.seek(0)
+                data = f.readlines()[0].split('<br />')
+                codes = ast.literal_eval(data[1].split('=')[1])
+                encoded = data[2].split('=')[1]
+                self.code_table.setColumnCount(len(codes))
+                self.code_table.setRowCount(2)
+                i = 0
+                for k, v in codes.items():
+                    self.code_table.setItem(0, i, QTableWidgetItem(k))
+                    self.code_table.setItem(1, i, QTableWidgetItem(v))
+                    i += 1
+                self.code_table.resizeColumnsToContents()
+                self.browse_decoded.setText(encoded)
+
         self.statusbar.showMessage(path.join(getcwd(), 'docs', file))
 
     def on_file_change(self, curr, prev):
@@ -71,6 +87,7 @@ class MainWindow(QMainWindow, Ui_main_window):
     def load_files(self):
         paths = [fn for fn in next(walk('docs'))[2]]
         paths.sort(key=lambda p: int(p.split('_')[0]))
+        paths = filter(lambda p: 'encoded' not in p, paths)
         for f in paths:
             self.list_files.addItem(f)
         self.list_files.currentItemChanged.connect(self.on_file_change)
@@ -118,28 +135,17 @@ class MainWindow(QMainWindow, Ui_main_window):
                 f.writelines('')
             reply = QMessageBox.information(self, "ok", filename, QMessageBox.Yes | QMessageBox.No)
 
+    def on_file_encoded_change(self, curr, prev):
+        if not curr:
+            return
+        self.load_file_into_view(curr.text(), self.browse_encoded)
+        self.current_file = curr.text()
 
-class Highlighter(QSyntaxHighlighter):
-    def __init__(self, parent=None):
-        super(Highlighter, self).__init__(parent)
-
-        hf = QTextCharFormat()
-        hf.setBackground(Qt.yellow)
-        self.highlight_format = hf
-        self.patterns = []
-        self.highlighting_rules = []
-
-    def update_patterns(self, p):
-        self.patterns = [p]
-        self.highlighting_rules = [QRegExp(p)]
-        self.rehighlight()
-
-    def highlightBlock(self, text):
-        for pattern in self.highlighting_rules:
-            expression = QRegExp(pattern)
-            index = expression.indexIn(text)
-            while index >= 0:
-                length = expression.matchedLength()
-                self.setFormat(index, length, self.highlight_format)
-                index = expression.indexIn(text, index + length)
-        self.setCurrentBlockState(0)
+    def load_files_encoded(self):
+        paths = [fn for fn in next(walk('docs'))[2]]
+        paths.sort(key=lambda p: int(p.split('_')[0]))
+        paths = filter(lambda p: 'encoded' in p, paths)
+        for f in paths:
+            self.list_encoded.addItem(f)
+        self.list_encoded.currentItemChanged.connect(self.on_file_encoded_change)
+        self.list_encoded.show()
