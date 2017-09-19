@@ -3,8 +3,8 @@ from os import walk, path
 import re
 from PyQt5.QtWidgets import QDialog, QTableWidgetItem
 
-from common import dialog_flags
-from ui.generated.freq import Ui_freq_dialog
+from .common import dialog_flags
+from .generated.freq import Ui_freq_dialog
 
 
 class FreqDialog(QDialog, Ui_freq_dialog):

@@ -3,13 +3,13 @@ from os import path, walk, getcwd
 
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem
 
-from about_dialog import AboutDialog
-from common import input_dialog
-from encode_dialog import EncodeDialog
-from freq_dialog import FreqDialog
-from inverse_index import InverseIndex
-from search_highlighter import SearchHighlighter
-from ui.generated.main import Ui_main_window
+from .about_dialog import AboutDialog
+from .common import input_dialog
+from .encode_dialog import EncodeDialog
+from .freq_dialog import FreqDialog
+from ..algorithm.inverse_index import InverseIndex
+from .search_highlighter import SearchHighlighter
+from .generated.main import Ui_main_window
 
 
 class MainWindow(QMainWindow, Ui_main_window):

@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QDialog
 
-from common import dialog_flags
-from ui.generated.about import Ui_about_dialog
+from .common import dialog_flags
+from .generated.about import Ui_about_dialog
 
 
 class AboutDialog(QDialog, Ui_about_dialog):
