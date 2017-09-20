@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icon">
+    <file>img/replace.png</file>
+    <file>img/replace_all.png</file>
     <file>img/clear.png</file>
     <file>img/encode.png</file>
     <file>img/logo.png</file>
