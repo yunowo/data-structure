@@ -15,7 +15,10 @@ class MainEditTab:
         self.w.button_encode.clicked.connect(self.encode_dialog)
         self.w.button_delete.clicked.connect(self.delete)
         self.w.button_add.clicked.connect(self.create_new_file)
-        self.w.button_open.clicked.connect(self.open_file)
+        self.w.button_open.clicked.connect(self.import_file)
+        self.w.button_search.clicked.connect(self.search)
+        self.w.button_replace.clicked.connect(self.replace)
+        self.w.button_replace_all.clicked.connect(self.replace_all)
         self.highlighter = SearchHighlighter(self.w.edit_text.document())
 
         self.current_file = None
@@ -58,7 +61,7 @@ class MainEditTab:
     def get_next(self):
         return int(self.w.list_files.item(self.file_num - 1).text().split('_')[0]) + 1
 
-    def open_file(self):
+    def import_file(self):
         files = QFileDialog.getOpenFileName(self.w, '导入文件', '')
         if files[0]:
             new_file = f'{self.get_next()}_{files[0].split("/")[-1].split(".")[-2]}.txt'
@@ -93,3 +96,20 @@ class MainEditTab:
             row = self.w.list_files.currentRow() - 1
             self.load_files()
             self.w.list_files.setCurrentRow(row)
+
+    def search(self):
+        q = self.w.edit_search.text()
+        self.highlighter.update_patterns(f"\\b{q}\\b")
+
+    def replace(self):
+        self.do_replace(1)
+
+    def replace_all(self):
+        self.do_replace(-1)
+
+    def do_replace(self, count):
+        src = self.w.edit_text.toPlainText()
+        s = self.w.edit_search.text()
+        r = self.w.edit_replace.text()
+        t = src.replace(s, r, count)
+        self.w.edit_text.setText(t.replace('\n', '<br />'))

@@ -8,16 +8,11 @@ class MainSearchTab:
     def __init__(self, main_window):
         self.w = main_window
 
-        self.w.button_search.clicked.connect(self.search_keyword)
         self.w.button_refresh_index.clicked.connect(self.refresh_index)
         self.w.button_index.clicked.connect(self.search_index)
         self.highlighter_index = SearchHighlighter(self.w.browse_text.document())
 
         self.current_file = None
-
-    def search_keyword(self):
-        q = self.w.edit_search.text()
-        self.w.highlighter.update_patterns(f"\\b{q}\\b")
 
     def refresh_index(self):
         InverseIndex().progress_dialog()
