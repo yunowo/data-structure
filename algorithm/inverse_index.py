@@ -31,12 +31,11 @@ class InverseIndex:
             with open(path.join('docs', p), 'r', encoding='utf-8') as f:
                 original = f.read()
                 filtered = re.sub("[\",.?!:;/<>()]", "", original)
-                words = filtered.split()
-                words_unique = list(set(words))
+                words = list(set(filtered.split()))
 
-                for i, w in enumerate(words_unique):
+                for i, w in enumerate(words):
                     index = []
-                    for ii, ww in enumerate(words_unique):
+                    for ii, ww in enumerate(words):
                         if ww == w:
                             index.append((p, ii))
                     if w in result:

@@ -11,11 +11,11 @@ def font():
     return f
 
 
-def input_dialog():
+def input_dialog(title, label):
     dialog = QInputDialog(None, dialog_flags)
     dialog.setInputMode(QInputDialog.TextInput)
-    dialog.setWindowTitle('新文件')
-    dialog.setLabelText('输入新文件名:')
+    dialog.setWindowTitle(title)
+    dialog.setLabelText(label)
     dialog.setFont(font())
     ok = dialog.exec_()
     filename = dialog.textValue()

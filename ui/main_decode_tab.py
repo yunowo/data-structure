@@ -10,8 +10,8 @@ class MainDecodeTab:
     def __init__(self, main_window):
         self.w = main_window
 
-        self.load_files()
         self.current_file = None
+        self.load_files()
 
     def load_file(self, file):
         with open(path.join('docs', file), 'r+', encoding='utf-8') as f:

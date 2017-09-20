@@ -17,8 +17,9 @@ class MainEditTab:
         self.w.button_open.clicked.connect(self.open_file)
         self.highlighter = SearchHighlighter(self.w.edit_text.document())
 
-        self.load_files()
         self.current_file = None
+        self.file_num = 0
+        self.load_files()
 
     def encode_dialog(self):
         w = EncodeDialog(self.current_file, self.w.edit_text.toPlainText())
@@ -50,6 +51,8 @@ class MainEditTab:
             self.w.list_files.addItem(f)
         self.w.list_files.currentItemChanged.connect(self.on_file_change)
         self.w.list_files.show()
+        self.w.list_files.setCurrentRow(0)
+        self.file_num = len(paths)
 
     def open_file(self):
         files = QFileDialog.getOpenFileName(self, '打开文件', '')
@@ -64,8 +67,11 @@ class MainEditTab:
             f.write(text)
 
     def create_new_file(self):
-        ok, filename = input_dialog()
+        ok, name = input_dialog('新文件', '输入文件名, 序号和扩展名将自动添加:')
         if ok:
+            filename = f'{self.file_num}_{name}.txt'
             with open(path.join('docs', filename), 'w+', encoding='utf-8') as f:
                 f.writelines('')
-            reply = QMessageBox.information(self, "ok", filename, QMessageBox.Yes | QMessageBox.No)
+            self.load_files()
+            self.w.list_files.setCurrentRow(self.file_num - 1)
+            QMessageBox.information(self.w, "新文件", f'{filename} 已创建')
