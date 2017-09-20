@@ -1,9 +1,9 @@
 <RCC>
   <qresource prefix="icon">
+    <file>img/clear.png</file>
     <file>img/encode.png</file>
     <file>img/logo.png</file>
     <file>img/save.png</file>
-    <file>img/clear.png</file>
     <file>img/search.png</file>
   </qresource>
 </RCC>
