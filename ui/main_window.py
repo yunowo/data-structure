@@ -30,7 +30,7 @@ class MainWindow(QMainWindow, Ui_main_window):
          }[i]()
 
     def closeEvent(self, event):
-        reply = QMessageBox.question(self, '确认', "真的要退出？", QMessageBox.Yes, QMessageBox.No)
+        reply = QMessageBox.question(self, '确认', "真的要退出?", QMessageBox.Yes, QMessageBox.No)
         if reply == QMessageBox.Yes:
             event.accept()
         else:
