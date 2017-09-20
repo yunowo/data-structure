@@ -54,24 +54,31 @@ class MainEditTab:
         self.w.list_files.setCurrentRow(0)
         self.file_num = len(paths)
 
-    def open_file(self):
-        files = QFileDialog.getOpenFileName(self, '打开文件', '')
-        if files[0]:
-            with open(files[0], 'r') as f:
-                data = f.read()
-                self.w.edit_text.setText(data)
+    def get_next(self):
+        return int(self.w.list_files.item(self.file_num - 1).text().split('_')[0]) + 1
 
-    def save(self):
-        with open(path.join('docs', self.current_file), 'w+', encoding='utf-8') as f:
-            text = self.w.edit_text.toPlainText().replace('\n', '<br />')
-            f.write(text)
+    def open_file(self):
+        files = QFileDialog.getOpenFileName(self.w, '导入文件', '')
+        if files[0]:
+            new_file = f'{self.get_next()}_{files[0].split("/")[-1].split(".")[-2]}.txt'
+            with open(files[0], 'r') as f:
+                data = f.read().replace('\n', '<br />')
+                with open(path.join('docs', new_file), 'w+', encoding='utf-8') as n:
+                    n.writelines(data)
+            self.load_files()
+            self.w.list_files.setCurrentRow(self.file_num - 1)
 
     def create_new_file(self):
         ok, name = input_dialog('新文件', '输入文件名, 序号和扩展名将自动添加:')
         if ok:
-            filename = f'{self.file_num}_{name}.txt'
+            filename = f'{self.get_next()}_{name}.txt'
             with open(path.join('docs', filename), 'w+', encoding='utf-8') as f:
                 f.writelines('')
             self.load_files()
             self.w.list_files.setCurrentRow(self.file_num - 1)
             QMessageBox.information(self.w, "新文件", f'{filename} 已创建')
+
+    def save(self):
+        with open(path.join('docs', self.current_file), 'w+', encoding='utf-8') as f:
+            text = self.w.edit_text.toPlainText().replace('\n', '<br />')
+            f.write(text)

@@ -40,9 +40,6 @@
          <layout class="QHBoxLayout" name="container">
           <item>
            <layout class="QVBoxLayout" name="left">
-            <property name="sizeConstraint">
-             <enum>QLayout::SetDefaultConstraint</enum>
-            </property>
             <item>
              <widget class="QListWidget" name="list_files">
               <property name="minimumSize">
@@ -64,14 +61,36 @@
               <item>
                <widget class="QPushButton" name="button_add">
                 <property name="text">
-                 <string>添加</string>
+                 <string>新建</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/icon/img/add.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="button_open">
                 <property name="text">
-                 <string>打开</string>
+                 <string>导入</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/icon/img/import.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -112,6 +131,24 @@
                 <property name="icon">
                  <iconset>
                   <normalon>:/icon/img/encode.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="button_delete">
+                <property name="text">
+                 <string>删除</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/icon/img/delete.png</normalon>
                  </iconset>
                 </property>
                 <property name="iconSize">
@@ -382,8 +419,14 @@
             <property name="sizeAdjustPolicy">
              <enum>QAbstractScrollArea::AdjustToContents</enum>
             </property>
-            <property name="rowCount">
-             <number>0</number>
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::SingleSelection</enum>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectColumns</enum>
             </property>
             <attribute name="horizontalHeaderVisible">
              <bool>false</bool>
