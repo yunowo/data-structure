@@ -45,8 +45,9 @@ class MainDecodeTab:
     def load_files(self):
         self.w.list_encoded.clear()
         paths = [fn for fn in next(walk('docs'))[2]]
+        paths = list(filter(lambda p: not p.startswith('.'), paths))
+        paths = list(filter(lambda p: 'encoded' in p, paths))
         paths.sort(key=lambda p: int(p.split('_')[0]))
-        paths = filter(lambda p: 'encoded' in p, paths)
         for f in paths:
             self.w.list_encoded.addItem(f)
         self.w.list_encoded.currentItemChanged.connect(self.on_file_change)

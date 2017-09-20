@@ -18,6 +18,8 @@ class InverseIndex:
     def create(dialog):
         result = {}
         paths = [fn for fn in next(walk('docs'))[2]]
+        paths = list(filter(lambda p: not p.startswith('.'), paths))
+        paths = list(filter(lambda p: 'encoded' not in p, paths))
         dialog.setRange(0, len(paths))
         for j, p in enumerate(paths):
             dialog.setValue(j)
@@ -42,14 +44,14 @@ class InverseIndex:
                     else:
                         result[w] = index
 
-        with open('docs_index.txt', 'w', encoding='utf-8') as f:
+        with open(path.join('docs', '.inverse_index.txt'), 'w', encoding='utf-8') as f:
             f.writelines(str(result))
         dialog.close()
         QMessageBox.information(dialog, "检索", "检索已完成")
 
     @staticmethod
     def search(query):
-        with open('docs_index.txt', 'r', encoding='utf-8') as f:
+        with open(path.join('docs', '.inverse_index.txt'), 'r', encoding='utf-8') as f:
             index = ast.literal_eval(f.readlines()[0])
             result = []
             for k in index.keys():

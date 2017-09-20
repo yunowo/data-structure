@@ -43,8 +43,9 @@ class MainEditTab:
     def load_files(self):
         self.w.list_files.clear()
         paths = [fn for fn in next(walk('docs'))[2]]
+        paths = list(filter(lambda p: not p.startswith('.'), paths))
+        paths = list(filter(lambda p: 'encoded' not in p, paths))
         paths.sort(key=lambda p: int(p.split('_')[0]))
-        paths = filter(lambda p: 'encoded' not in p, paths)
         for f in paths:
             self.w.list_files.addItem(f)
         self.w.list_files.currentItemChanged.connect(self.on_file_change)
