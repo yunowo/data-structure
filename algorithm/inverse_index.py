@@ -30,18 +30,20 @@ class InverseIndex:
 
             with open(path.join('docs', p), 'r', encoding='utf-8') as f:
                 original = f.read()
-                filtered = re.sub("[\",.?!:;/<>()]", "", original)
-                words = list(set(filtered.split()))
+                replaced = original.replace('<br />', '')
+                filtered = re.sub("[\",.?!:;/<>()]", " ", replaced)
+                words = list(filtered.split())
 
+                index = {}
                 for i, w in enumerate(words):
-                    index = []
-                    for ii, ww in enumerate(words):
-                        if ww == w:
-                            index.append((p, ii))
-                    if w in result:
-                        result[w].append(*index)
+                    if w not in index:
+                        index[w] = (i,)
                     else:
-                        result[w] = index
+                        index[w] = (*index[w], i)
+                    if w not in result:
+                        result[w] = {p: index[w]}
+                    else:
+                        result[w][p] = index[w]
 
         with open(path.join('docs', '.inverse_index.txt'), 'w', encoding='utf-8') as f:
             f.writelines(str(result))
@@ -52,8 +54,7 @@ class InverseIndex:
     def search(query):
         with open(path.join('docs', '.inverse_index.txt'), 'r', encoding='utf-8') as f:
             index = ast.literal_eval(f.readlines()[0])
-            result = []
-            for k in index.keys():
-                if query == k:
-                    result = [*result, *index[k]]
-            return result
+            if query in index:
+                return list(index[query].items())
+            else:
+                return []

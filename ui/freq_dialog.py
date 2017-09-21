@@ -18,6 +18,8 @@ class FreqDialog(QDialog, Ui_freq_dialog):
     def index_word(self):
         d = {}
         paths = [fn for fn in next(walk('docs'))[2]]
+        paths = list(filter(lambda p: not p.startswith('.'), paths))
+        paths = list(filter(lambda p: 'encoded' not in p, paths))
         for file in paths:
             with open(path.join('docs', file), 'r+', encoding='utf-8') as f:
                 text = f.read().lower()

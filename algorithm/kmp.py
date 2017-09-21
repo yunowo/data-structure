@@ -21,7 +21,8 @@ class KMP:
         for i in range(len(t)):
             while j > 0 and t[i] != p[j]:
                 j = partial[j - 1]
-            if t[i] == p[j]: j += 1
+            if t[i] == p[j]:
+                j += 1
             if j == len(p):
                 ret.append(i - (j - 1))
                 j = 0

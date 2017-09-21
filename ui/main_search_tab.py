@@ -37,7 +37,7 @@ class MainSearchTab:
         result = InverseIndex.search(self.w.edit_index.text())
         result.sort(key=lambda p: int(p[0].split('_')[0]))
         for r in result:
-            self.w.list_results.addItem(f'{r[0]}\t#{r[1]}')
+            self.w.list_results.addItem(f'{r[0]}\t{", ".join(str(n) for n in r[1])}')
         self.w.list_results.currentItemChanged.connect(self.on_file_change)
         self.w.list_results.show()
         self.highlighter_index.update_patterns(f"\\b{self.w.edit_index.text()}\\b")
