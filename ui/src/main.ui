@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>550</height>
+    <width>1000</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="font">
@@ -26,7 +26,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="1" column="0">
+    <item row="0" column="0">
      <widget class="QTabWidget" name="tabs_container">
       <property name="currentIndex">
        <number>0</number>
@@ -35,29 +35,47 @@
        <attribute name="title">
         <string>编辑</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout">
+       <layout class="QGridLayout" name="tab_edit_container">
         <item row="0" column="0">
-         <layout class="QHBoxLayout" name="container">
-          <item>
-           <layout class="QVBoxLayout" name="left">
+         <widget class="QSplitter" name="splitter_0">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="childrenCollapsible">
+           <bool>false</bool>
+          </property>
+          <widget class="QWidget" name="left_0" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>300</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <layout class="QVBoxLayout" name="left_0_container">
             <item>
-             <widget class="QListWidget" name="list_files">
-              <property name="minimumSize">
-               <size>
-                <width>200</width>
-                <height>0</height>
-               </size>
+             <widget class="QTreeView" name="list_files">
+              <property name="sizeAdjustPolicy">
+               <enum>QAbstractScrollArea::AdjustToContents</enum>
               </property>
-              <property name="maximumSize">
-               <size>
-                <width>200</width>
-                <height>16777215</height>
-               </size>
+              <property name="editTriggers">
+               <set>QAbstractItemView::NoEditTriggers</set>
+              </property>
+              <property name="rootIsDecorated">
+               <bool>false</bool>
+              </property>
+              <property name="sortingEnabled">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="container_4">
+             <layout class="QHBoxLayout" name="left_0_0">
               <item>
                <widget class="QPushButton" name="button_add">
                 <property name="text">
@@ -97,14 +115,11 @@
              </layout>
             </item>
            </layout>
-          </item>
-          <item>
+          </widget>
+          <widget class="QWidget" name="right_0" native="true">
            <layout class="QVBoxLayout" name="right">
             <item>
-             <layout class="QHBoxLayout" name="container_5">
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
+             <layout class="QHBoxLayout" name="right_0_0">
               <item>
                <widget class="QPushButton" name="button_save">
                 <property name="text">
@@ -162,13 +177,7 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="container_2" stretch="0,0,0,0,0,0">
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
+             <layout class="QHBoxLayout" name="right_0_1">
               <item>
                <widget class="QLineEdit" name="edit_search">
                 <property name="sizePolicy">
@@ -254,13 +263,7 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="container_3" stretch="0,0,0">
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
+             <layout class="QHBoxLayout" name="right_0_2">
               <item>
                <widget class="QLineEdit" name="edit_replace">
                 <property name="sizePolicy">
@@ -313,8 +316,8 @@
              <widget class="QTextEdit" name="edit_text"/>
             </item>
            </layout>
-          </item>
-         </layout>
+          </widget>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -322,73 +325,71 @@
        <attribute name="title">
         <string>检索</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_3">
+       <layout class="QGridLayout" name="tab_index_container">
         <item row="0" column="0">
-         <layout class="QHBoxLayout" name="container_6">
+         <layout class="QVBoxLayout" name="container_0">
           <item>
-           <layout class="QVBoxLayout" name="container_7">
+           <layout class="QHBoxLayout" name="top_0">
             <item>
-             <layout class="QHBoxLayout" name="container_8">
-              <item>
-               <widget class="QLineEdit" name="edit_index"/>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkbox_match_case_index">
-                <property name="text">
-                 <string>区分大小写</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="button_index">
-                <property name="text">
-                 <string>检索</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="button_refresh_index">
-                <property name="text">
-                 <string>刷新索引</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <widget class="QLineEdit" name="edit_index"/>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="container_9">
-              <item>
-               <widget class="QListWidget" name="list_results">
-                <property name="minimumSize">
-                 <size>
-                  <width>200</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>200</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QTextBrowser" name="browse_text">
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <widget class="QCheckBox" name="checkbox_match_case_index">
+              <property name="text">
+               <string>区分大小写</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="button_index">
+              <property name="text">
+               <string>检索</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="button_refresh_index">
+              <property name="text">
+               <string>刷新索引</string>
+              </property>
+             </widget>
             </item>
            </layout>
+          </item>
+          <item>
+           <widget class="QSplitter" name="bottom_0">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="childrenCollapsible">
+             <bool>false</bool>
+            </property>
+            <widget class="QListWidget" name="list_results">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>300</width>
+               <height>16777215</height>
+              </size>
+             </property>
+            </widget>
+            <widget class="QTextBrowser" name="browse_text">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
+             </property>
+            </widget>
+           </widget>
           </item>
          </layout>
         </item>
@@ -398,61 +399,73 @@
        <attribute name="title">
         <string>解码</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_4">
-        <item row="0" column="1">
+       <layout class="QGridLayout" name="tab_decode_container">
+        <item row="0" column="0">
          <widget class="QSplitter" name="splitter_1">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <widget class="QTextBrowser" name="browse_encoded"/>
+          <property name="childrenCollapsible">
+           <bool>false</bool>
+          </property>
+          <widget class="QListWidget" name="list_encoded">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>300</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
           <widget class="QSplitter" name="splitter_2">
            <property name="orientation">
-            <enum>Qt::Vertical</enum>
+            <enum>Qt::Horizontal</enum>
            </property>
-           <widget class="QTableWidget" name="code_table">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>80</height>
-             </size>
+           <property name="childrenCollapsible">
+            <bool>false</bool>
+           </property>
+           <widget class="QTextBrowser" name="browse_encoded"/>
+           <widget class="QSplitter" name="splitter_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
             </property>
-            <property name="sizeAdjustPolicy">
-             <enum>QAbstractScrollArea::AdjustToContents</enum>
-            </property>
-            <property name="editTriggers">
-             <set>QAbstractItemView::NoEditTriggers</set>
-            </property>
-            <property name="selectionMode">
-             <enum>QAbstractItemView::SingleSelection</enum>
-            </property>
-            <property name="selectionBehavior">
-             <enum>QAbstractItemView::SelectColumns</enum>
-            </property>
-            <attribute name="horizontalHeaderVisible">
+            <property name="childrenCollapsible">
              <bool>false</bool>
-            </attribute>
-            <attribute name="verticalHeaderVisible">
-             <bool>false</bool>
-            </attribute>
+            </property>
+            <widget class="QTableWidget" name="code_table">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>80</height>
+              </size>
+             </property>
+             <property name="sizeAdjustPolicy">
+              <enum>QAbstractScrollArea::AdjustToContents</enum>
+             </property>
+             <property name="editTriggers">
+              <set>QAbstractItemView::NoEditTriggers</set>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::SingleSelection</enum>
+             </property>
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectColumns</enum>
+             </property>
+             <attribute name="horizontalHeaderVisible">
+              <bool>false</bool>
+             </attribute>
+             <attribute name="verticalHeaderVisible">
+              <bool>false</bool>
+             </attribute>
+            </widget>
+            <widget class="QTextBrowser" name="browse_decoded"/>
            </widget>
-           <widget class="QTextBrowser" name="browse_decoded"/>
           </widget>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QListWidget" name="list_encoded">
-          <property name="minimumSize">
-           <size>
-            <width>200</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>200</width>
-            <height>16777215</height>
-           </size>
-          </property>
          </widget>
         </item>
        </layout>
@@ -466,7 +479,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1000</width>
      <height>23</height>
     </rect>
    </property>
