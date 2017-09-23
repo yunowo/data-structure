@@ -1,6 +1,7 @@
-from PyQt5.QtCore import QSortFilterProxyModel, Qt, QDir
 from os import path, getcwd
 
+from PyQt5.QtCore import QSortFilterProxyModel, Qt, QDir
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QFileSystemModel, QHeaderView
 
 
@@ -24,6 +25,23 @@ class SortFilter(QSortFilterProxyModel):
     def __init__(self, encoded):
         self.encoded = encoded
         super().__init__()
+
+    def headerData(self, section, orientation, role=None):
+        if role == Qt.DisplayRole:
+            if section == 0:
+                return '名称'
+            if section == 1:
+                return '大小'
+            if section == 2:
+                return '类型'
+            if section == 3:
+                return '修改日期'
+        return super(SortFilter, self).headerData(section, orientation, role)
+
+    def data(self, index, role=None):
+        if role == Qt.DecorationRole and index.column() == 0:
+            return QIcon(f":/icon/img/file_{3 if self.encoded else 1}.png")
+        return super(SortFilter, self).data(index, role)
 
     def filterAcceptsRow(self, row, parent):
         if self.filterKeyColumn() == 0:

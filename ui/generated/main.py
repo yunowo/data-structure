@@ -32,13 +32,14 @@ class Ui_main_window(object):
         self.splitter_0.setChildrenCollapsible(False)
         self.splitter_0.setObjectName("splitter_0")
         self.left_0 = QtWidgets.QWidget(self.splitter_0)
-        self.left_0.setMinimumSize(QtCore.QSize(200, 0))
         self.left_0.setMaximumSize(QtCore.QSize(300, 16777215))
         self.left_0.setObjectName("left_0")
         self.left_0_container = QtWidgets.QVBoxLayout(self.left_0)
         self.left_0_container.setContentsMargins(0, 0, 0, 0)
         self.left_0_container.setObjectName("left_0_container")
         self.list_files = QtWidgets.QTreeView(self.left_0)
+        self.list_files.setMinimumSize(QtCore.QSize(200, 0))
+        self.list_files.setMaximumSize(QtCore.QSize(300, 16777215))
         self.list_files.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.list_files.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.list_files.setRootIsDecorated(False)
@@ -270,7 +271,7 @@ class Ui_main_window(object):
         self.menubar.addAction(self.menu_2.menuAction())
 
         self.retranslateUi(main_window)
-        self.tabs_container.setCurrentIndex(1)
+        self.tabs_container.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(main_window)
 
     def retranslateUi(self, main_window):

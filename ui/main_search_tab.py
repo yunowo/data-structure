@@ -1,5 +1,6 @@
 from os import path, getcwd
 
+from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QTreeWidgetItem
 
@@ -37,7 +38,7 @@ class MainSearchTab:
 
     def setup(self):
         self.w.list_results.setColumnCount(2)
-        self.w.list_results.setHeaderLabels(["名称", "出现位置"])
+        self.w.list_results.setHeaderLabels(["     名称", "出现位置"])
 
     def search_index(self):
         self.w.list_results.clear()
@@ -48,6 +49,7 @@ class MainSearchTab:
             item = SearchResultItem()
             item.setText(0, r[0])
             item.setText(1, ", ".join(str(n) for n in r[1]))
+            item.setIcon(0, QtGui.QIcon(":/icon/img/file_2.png"))
             self.w.list_results.invisibleRootItem().addChild(item)
         self.w.list_results.sortByColumn(1, Qt.DescendingOrder)
         self.w.list_results.currentItemChanged.connect(self.on_file_change)

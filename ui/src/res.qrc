@@ -1,6 +1,9 @@
 <RCC>
   <qresource prefix="icon">
     <file>img/add.png</file>
+    <file>img/file_1.png</file>
+    <file>img/file_2.png</file>
+    <file>img/file_3.png</file>
     <file>img/delete.png</file>
     <file>img/import.png</file>
     <file>img/replace.png</file>

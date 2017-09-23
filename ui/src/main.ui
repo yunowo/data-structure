@@ -29,7 +29,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabs_container">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_edit">
        <attribute name="title">
@@ -45,12 +45,6 @@
            <bool>false</bool>
           </property>
           <widget class="QWidget" name="left_0" native="true">
-           <property name="minimumSize">
-            <size>
-             <width>200</width>
-             <height>0</height>
-            </size>
-           </property>
            <property name="maximumSize">
             <size>
              <width>300</width>
@@ -60,6 +54,18 @@
            <layout class="QVBoxLayout" name="left_0_container">
             <item>
              <widget class="QTreeView" name="list_files">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>300</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="sizeAdjustPolicy">
                <enum>QAbstractScrollArea::AdjustToContents</enum>
               </property>
