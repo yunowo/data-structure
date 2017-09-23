@@ -123,10 +123,10 @@
            </layout>
           </widget>
           <widget class="QWidget" name="right_0" native="true">
-           <layout class="QVBoxLayout" name="right">
+           <layout class="QVBoxLayout" name="right_0_container">
             <item>
-             <layout class="QHBoxLayout" name="right_0_0">
-              <item>
+             <layout class="QGridLayout" name="right_0_0">
+              <item row="0" column="0">
                <widget class="QPushButton" name="button_save">
                 <property name="text">
                  <string>保存</string>
@@ -144,7 +144,7 @@
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="0" column="1">
                <widget class="QPushButton" name="button_encode">
                 <property name="text">
                  <string>编码</string>
@@ -162,7 +162,111 @@
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="0" column="2">
+               <layout class="QHBoxLayout" name="right_0_1">
+                <item>
+                 <widget class="QLineEdit" name="edit_search">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="dragEnabled">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QToolButton" name="button_search_clear">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normalon>:/icon/img/clear.png</normalon>
+                   </iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>24</width>
+                    <height>24</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="button_search">
+                  <property name="text">
+                   <string>查找</string>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normalon>:/icon/img/search.png</normalon>
+                   </iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>24</width>
+                    <height>24</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkbox_match_case">
+                  <property name="text">
+                   <string>区分大小写</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkbox_words">
+                  <property name="text">
+                   <string>单词</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkbox_regex">
+                  <property name="text">
+                   <string>正则表达式</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="0">
+               <widget class="QPushButton" name="button_save_as">
+                <property name="text">
+                 <string>另存</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/icon/img/save_as.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
                <widget class="QPushButton" name="button_delete">
                 <property name="text">
                  <string>删除</string>
@@ -180,141 +284,55 @@
                 </property>
                </widget>
               </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="right_0_1">
-              <item>
-               <widget class="QLineEdit" name="edit_search">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="dragEnabled">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QToolButton" name="button_search_clear">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset>
-                  <normalon>:/icon/img/clear.png</normalon>
-                 </iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>24</width>
-                  <height>24</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="button_search">
-                <property name="text">
-                 <string>查找</string>
-                </property>
-                <property name="icon">
-                 <iconset>
-                  <normalon>:/icon/img/search.png</normalon>
-                 </iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>24</width>
-                  <height>24</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkbox_match_case">
-                <property name="text">
-                 <string>区分大小写</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkbox_words">
-                <property name="text">
-                 <string>单词</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkbox_regex">
-                <property name="text">
-                 <string>正则表达式</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="right_0_2">
-              <item>
-               <widget class="QLineEdit" name="edit_replace">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="button_replace">
-                <property name="text">
-                 <string>替换</string>
-                </property>
-                <property name="icon">
-                 <iconset>
-                  <normalon>:/icon/img/replace.png</normalon>
-                 </iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>24</width>
-                  <height>24</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="button_replace_all">
-                <property name="text">
-                 <string>替换所有</string>
-                </property>
-                <property name="icon">
-                 <iconset>
-                  <normalon>:/icon/img/replace_all.png</normalon>
-                 </iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>24</width>
-                  <height>24</height>
-                 </size>
-                </property>
-               </widget>
+              <item row="1" column="2">
+               <layout class="QHBoxLayout" name="right_0_2">
+                <item>
+                 <widget class="QLineEdit" name="edit_replace">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="button_replace">
+                  <property name="text">
+                   <string>替换</string>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normalon>:/icon/img/replace.png</normalon>
+                   </iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>24</width>
+                    <height>24</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="button_replace_all">
+                  <property name="text">
+                   <string>替换所有</string>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normalon>:/icon/img/replace_all.png</normalon>
+                   </iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>24</width>
+                    <height>24</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </item>
@@ -337,7 +355,14 @@
           <item>
            <layout class="QHBoxLayout" name="top_0">
             <item>
-             <widget class="QLineEdit" name="edit_index"/>
+             <widget class="QLineEdit" name="edit_index">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="QCheckBox" name="checkbox_match_case_index">
@@ -354,12 +379,34 @@
               <property name="text">
                <string>检索</string>
               </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/icon/img/search.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item>
              <widget class="QPushButton" name="button_refresh_index">
               <property name="text">
                <string>刷新索引</string>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normalon>:/icon/img/refresh.png</normalon>
+               </iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
               </property>
              </widget>
             </item>

@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icon">
+    <file>img/refresh.png</file>
+    <file>img/save_as.png</file>
     <file>img/add.png</file>
     <file>img/file_1.png</file>
     <file>img/file_2.png</file>

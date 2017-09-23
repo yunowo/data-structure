@@ -85,7 +85,7 @@ class MainEditTab:
         files = QFileDialog.getOpenFileName(self.w, '导入文件', '')
         if files[0]:
             new_file = f'{self.get_next()}_{files[0].split("/")[-1].split(".")[-2]}.txt'
-            with open(files[0], 'r') as f:
+            with open(files[0], 'r+', encoding='utf-8') as f:
                 data = f.read().replace('\n', '<br />')
                 with open(path.join('docs', new_file), 'w+', encoding='utf-8') as n:
                     n.writelines(data)
