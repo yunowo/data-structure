@@ -190,10 +190,12 @@ class Ui_main_window(object):
         self.bottom_0.setOrientation(QtCore.Qt.Horizontal)
         self.bottom_0.setChildrenCollapsible(False)
         self.bottom_0.setObjectName("bottom_0")
-        self.list_results = QtWidgets.QListWidget(self.bottom_0)
+        self.list_results = QtWidgets.QTreeWidget(self.bottom_0)
         self.list_results.setMinimumSize(QtCore.QSize(200, 0))
         self.list_results.setMaximumSize(QtCore.QSize(300, 16777215))
+        self.list_results.setRootIsDecorated(False)
         self.list_results.setObjectName("list_results")
+        self.list_results.headerItem().setText(0, "1")
         self.browse_text = QtWidgets.QTextBrowser(self.bottom_0)
         self.browse_text.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.browse_text.setObjectName("browse_text")
@@ -268,7 +270,7 @@ class Ui_main_window(object):
         self.menubar.addAction(self.menu_2.menuAction())
 
         self.retranslateUi(main_window)
-        self.tabs_container.setCurrentIndex(0)
+        self.tabs_container.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(main_window)
 
     def retranslateUi(self, main_window):
@@ -289,6 +291,7 @@ class Ui_main_window(object):
         self.checkbox_match_case_index.setText(_translate("main_window", "区分大小写"))
         self.button_index.setText(_translate("main_window", "检索"))
         self.button_refresh_index.setText(_translate("main_window", "刷新索引"))
+        self.list_results.setSortingEnabled(True)
         self.tabs_container.setTabText(self.tabs_container.indexOf(self.tab_index), _translate("main_window", "检索"))
         self.tabs_container.setTabText(self.tabs_container.indexOf(self.tab_decode), _translate("main_window", "解码"))
         self.menu.setTitle(_translate("main_window", "检索"))

@@ -35,7 +35,7 @@ class SortFilter(QSortFilterProxyModel):
         return super(SortFilter, self).filterAcceptsRow(row, parent)
 
     def lessThan(self, index1, index2):
-        def no_to_int(i):
+        def name_to_int(i):
             return int(self.sourceModel().data(i).split('_')[0])
 
         def size_to_int(i):
@@ -50,7 +50,7 @@ class SortFilter(QSortFilterProxyModel):
             return b
 
         if index1.column() == 0:
-            return no_to_int(index1) < no_to_int(index2)
+            return name_to_int(index1) < name_to_int(index2)
         if index1.column() == 1:
             return size_to_int(index1) < size_to_int(index2)
         return super(SortFilter, self).lessThan(index1, index2)
