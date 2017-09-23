@@ -7,6 +7,9 @@ from ui.common import dialog_flags, font
 
 
 class InverseIndex:
+    def __init__(self):
+        self.index = None
+
     def progress_dialog(self):
         d = QProgressDialog(None, dialog_flags)
         d.setWindowTitle('索引中...')
@@ -14,8 +17,7 @@ class InverseIndex:
         d.show()
         self.create(d)
 
-    @staticmethod
-    def create(dialog):
+    def create(self, dialog):
         result = {}
         paths = [fn for fn in next(walk('docs'))[2]]
         paths = list(filter(lambda p: not p.startswith('.'), paths))
@@ -47,14 +49,15 @@ class InverseIndex:
 
         with open(path.join('docs', '.inverse_index.txt'), 'w', encoding='utf-8') as f:
             f.writelines(str(result))
+        self.index = result
         dialog.close()
         QMessageBox.information(dialog, '检索', '检索已完成')
 
-    @staticmethod
-    def search(query):
-        with open(path.join('docs', '.inverse_index.txt'), 'r', encoding='utf-8') as f:
-            index = ast.literal_eval(f.readlines()[0])
-            if query in index:
-                return list(index[query].items())
-            else:
-                return []
+    def search(self, query):
+        if self.index is None:
+            with open(path.join('docs', '.inverse_index.txt'), 'r', encoding='utf-8') as f:
+                self.index = ast.literal_eval(f.readlines()[0])
+        if query in self.index:
+            return list(self.index[query].items())
+        else:
+            return []

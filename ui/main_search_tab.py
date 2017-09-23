@@ -17,10 +17,11 @@ class MainSearchTab:
         self.highlighter_index = SearchHighlighter(self.w.browse_text.document())
 
         self.current_file = None
+        self.inverse_index = None
         self.setup()
 
     def refresh_index(self):
-        InverseIndex().progress_dialog()
+        self.inverse_index.progress_dialog()
 
     def load_file(self, file):
         with open(path.join('docs', file), 'r+', encoding='utf-8') as f:
@@ -41,11 +42,12 @@ class MainSearchTab:
         self.w.list_results.setHeaderLabels(['     名称', '频度', '位置'])
         for i in range(0, 2):
             self.w.list_results.header().setSectionResizeMode(i, QHeaderView.ResizeToContents)
+        self.inverse_index = InverseIndex()
 
     def search_index(self):
         self.w.list_results.clear()
         self.w.browse_text.clear()
-        result = InverseIndex.search(self.w.edit_index.text())
+        result = self.inverse_index.search(self.w.edit_index.text())
         result.sort(key=lambda p: int(p[0].split('_')[0]))
         for r in result:
             item = SearchResultItem()
