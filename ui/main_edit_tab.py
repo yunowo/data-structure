@@ -1,10 +1,12 @@
-from os import walk, path, getcwd, remove
+from os import path, getcwd, remove
 
+from PyQt5.QtCore import QItemSelectionModel
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
-from ui.search_highlighter import SearchHighlighter
 from ui.common import input_dialog
 from ui.encode_dialog import EncodeDialog
+from ui.file_sort_filter import setup_file_view
+from ui.search_highlighter import SearchHighlighter
 
 
 class MainEditTab:
@@ -21,7 +23,10 @@ class MainEditTab:
         self.w.button_replace_all.clicked.connect(self.replace_all)
         self.highlighter = SearchHighlighter(self.w.edit_text.document())
 
+        self.model = None
+        self.filtered_model = None
         self.current_file = None
+        self.current_row = 0
         self.file_num = 0
         self.load_files()
 
@@ -39,27 +44,42 @@ class MainEditTab:
                 self.w.edit_text.setText('')
         self.w.statusbar.showMessage(path.join(getcwd(), 'docs', file))
 
-    def on_file_change(self, curr, prev):
+    def on_file_change(self, curr):
         if not curr:
             return
-        self.load_file(curr.text())
-        self.current_file = curr.text()
+        name = self.model.fileName(curr.indexes()[0])
+        self.load_file(name)
+        self.current_file = name
+
+    def docs_root(self):
+        def find_model(root):
+            if root.data() == 'docs':
+                return root
+            else:
+                return find_model(root.child(0, 0))
+
+        return find_model(self.filtered_model.index(0, 0))
+
+    def select_current_row(self, row):
+        index = self.docs_root().child(row, 0)
+        self.w.list_files.selectionModel().select(index, QItemSelectionModel.ClearAndSelect | QItemSelectionModel.Rows)
+        self.w.list_files.scrollTo(index)
+
+    def folder_loaded(self):
+        self.file_num = self.filtered_model.rowCount(self.docs_root())
+        if self.current_file is None:
+            self.select_current_row(0)
+        self.select_current_row(self.current_row)
 
     def load_files(self):
-        self.w.list_files.clear()
-        paths = [fn for fn in next(walk('docs'))[2]]
-        paths = list(filter(lambda p: not p.startswith('.'), paths))
-        paths = list(filter(lambda p: 'encoded' not in p, paths))
-        paths.sort(key=lambda p: int(p.split('_')[0]))
-        for f in paths:
-            self.w.list_files.addItem(f)
-        self.w.list_files.currentItemChanged.connect(self.on_file_change)
-        self.w.list_files.show()
-        self.w.list_files.setCurrentRow(0)
-        self.file_num = len(paths)
+        self.model, self.filtered_model = setup_file_view(self.w.list_files, False)
+        self.model.directoryLoaded.connect(self.folder_loaded)
+        self.w.list_files.selectionModel().selectionChanged.connect(self.on_file_change)
 
     def get_next(self):
-        return int(self.w.list_files.item(self.file_num - 1).text().split('_')[0]) + 1
+        index = self.docs_root().child(self.file_num - 1, 0)
+        data = self.filtered_model.data(index)
+        return int(data.split('_')[0]) + 1
 
     def import_file(self):
         files = QFileDialog.getOpenFileName(self.w, '导入文件', '')
@@ -69,8 +89,8 @@ class MainEditTab:
                 data = f.read().replace('\n', '<br />')
                 with open(path.join('docs', new_file), 'w+', encoding='utf-8') as n:
                     n.writelines(data)
+            self.current_row = self.file_num
             self.load_files()
-            self.w.list_files.setCurrentRow(self.file_num - 1)
             QMessageBox.information(self.w, "导入文件", f'已导入 {new_file}')
 
     def create_new_file(self):
@@ -79,8 +99,8 @@ class MainEditTab:
             filename = f'{self.get_next()}_{name}.txt'
             with open(path.join('docs', filename), 'w+', encoding='utf-8') as f:
                 f.writelines('')
+            self.current_row = self.file_num
             self.load_files()
-            self.w.list_files.setCurrentRow(self.file_num - 1)
             QMessageBox.information(self.w, "新建文件", f'已创建 {filename}')
 
     def save(self):
@@ -93,9 +113,9 @@ class MainEditTab:
         reply = QMessageBox.question(self.w, '确认', "真的要删除?", QMessageBox.Yes, QMessageBox.No)
         if reply == QMessageBox.Yes:
             remove(path.join('docs', self.current_file))
-            row = self.w.list_files.currentRow() - 1
+            row = self.w.list_files.selectedIndexes()[0].row() - 1
             self.load_files()
-            self.w.list_files.setCurrentRow(row)
+            self.current_row = row
 
     def search(self):
         q = self.w.edit_search.text()

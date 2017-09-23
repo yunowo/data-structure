@@ -1,15 +1,18 @@
 import ast
-from os import walk, path, getcwd
+from os import path, getcwd
 
 from PyQt5.QtWidgets import QTableWidgetItem
 
 from algorithm.huffman import Huffman
+from ui.file_sort_filter import setup_file_view
 
 
 class MainDecodeTab:
     def __init__(self, main_window):
         self.w = main_window
 
+        self.model = None
+        self.filtered_model = None
         self.current_file = None
         self.load_files()
 
@@ -36,19 +39,13 @@ class MainDecodeTab:
             self.w.browse_decoded.setText(Huffman.decode(encoded, codes))
         self.w.statusbar.showMessage(path.join(getcwd(), 'docs', file))
 
-    def on_file_change(self, curr, prev):
+    def on_file_change(self, curr):
         if not curr:
             return
-        self.load_file(curr.text())
-        self.current_file = curr.text()
+        name = self.model.fileName(curr.indexes()[0])
+        self.load_file(name)
+        self.current_file = name
 
     def load_files(self):
-        self.w.list_encoded.clear()
-        paths = [fn for fn in next(walk('docs'))[2]]
-        paths = list(filter(lambda p: not p.startswith('.'), paths))
-        paths = list(filter(lambda p: 'encoded' in p, paths))
-        paths.sort(key=lambda p: int(p.split('_')[0]))
-        for f in paths:
-            self.w.list_encoded.addItem(f)
-        self.w.list_encoded.currentItemChanged.connect(self.on_file_change)
-        self.w.list_encoded.show()
+        self.model, self.filtered_model = setup_file_view(self.w.list_encoded, True)
+        self.w.list_encoded.selectionModel().selectionChanged.connect(self.on_file_change)

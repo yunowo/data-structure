@@ -244,19 +244,19 @@
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkbox_regex">
-                <property name="text">
-                 <string>正则表达式</string>
-                </property>
-               </widget>
-              </item>
-              <item>
                <widget class="QCheckBox" name="checkbox_words">
                 <property name="text">
                  <string>单词</string>
                 </property>
                 <property name="checked">
                  <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="checkbox_regex">
+                <property name="text">
+                 <string>正则表达式</string>
                 </property>
                </widget>
               </item>
@@ -408,7 +408,7 @@
           <property name="childrenCollapsible">
            <bool>false</bool>
           </property>
-          <widget class="QListWidget" name="list_encoded">
+          <widget class="QTreeView" name="list_encoded">
            <property name="minimumSize">
             <size>
              <width>200</width>
@@ -420,6 +420,12 @@
              <width>300</width>
              <height>16777215</height>
             </size>
+           </property>
+           <property name="rootIsDecorated">
+            <bool>false</bool>
+           </property>
+           <property name="sortingEnabled">
+            <bool>true</bool>
            </property>
           </widget>
           <widget class="QSplitter" name="splitter_2">
