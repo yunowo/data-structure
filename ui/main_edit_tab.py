@@ -101,16 +101,16 @@ class MainEditTab:
                 f.writelines('')
             self.current_row = self.file_num
             self.load_files()
-            QMessageBox.information(self.w, "新建文件", f'已创建 {filename}')
+            QMessageBox.information(self.w, '新建文件', f'已创建 {filename}')
 
     def save(self):
         with open(path.join('docs', self.current_file), 'w+', encoding='utf-8') as f:
             text = self.w.edit_text.toPlainText().replace('\n', '<br />')
             f.write(text)
-        QMessageBox.information(self.w, "保存", '文件已保存')
+        QMessageBox.information(self.w, '保存', '文件已保存')
 
     def delete(self):
-        reply = QMessageBox.question(self.w, '确认', "真的要删除?", QMessageBox.Yes, QMessageBox.No)
+        reply = QMessageBox.question(self.w, '确认', '真的要删除?', QMessageBox.Yes, QMessageBox.No)
         if reply == QMessageBox.Yes:
             remove(path.join('docs', self.current_file))
             row = self.w.list_files.selectedIndexes()[0].row() - 1
@@ -119,7 +119,7 @@ class MainEditTab:
 
     def search(self):
         q = self.w.edit_search.text()
-        self.highlighter.update_patterns(f"\\b{q}\\b")
+        self.highlighter.update_patterns(f'\\b{q}\\b')
 
     def replace(self):
         self.do_replace(1)

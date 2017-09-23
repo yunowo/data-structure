@@ -7,7 +7,7 @@ dialog_flags = Qt.Dialog | Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.Wind
 
 def font():
     f = QtGui.QFont()
-    f.setFamily("微软雅黑")
+    f.setFamily('微软雅黑')
     return f
 
 

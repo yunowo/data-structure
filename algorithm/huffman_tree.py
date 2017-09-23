@@ -23,7 +23,7 @@ class HuffmanTree:
             if r.father:
                 G.add_node(id(r), freq=r.freq)
                 G.add_edge(id(r.father), id(r))
-                labels[id(r)] = f"{r.freq}{'|' + r.char if r.char else ''}"
+                labels[id(r)] = f'{r.freq}{"|" + r.char if r.char else ""}'
                 edge_labels[(id(r), id(r.father))] = '0' if r.is_left() else '1'
                 if r.char:
                     leafs.append(id(r))

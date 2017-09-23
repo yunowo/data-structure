@@ -40,7 +40,7 @@ class SortFilter(QSortFilterProxyModel):
 
     def data(self, index, role=None):
         if role == Qt.DecorationRole and index.column() == 0:
-            return QIcon(f":/icon/img/file_{3 if self.encoded else 1}.png")
+            return QIcon(f':/icon/img/file_{3 if self.encoded else 1}.png')
         return super(SortFilter, self).data(index, role)
 
     def filterAcceptsRow(self, row, parent):

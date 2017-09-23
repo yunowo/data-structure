@@ -9,7 +9,7 @@ from ui.common import dialog_flags, font
 class InverseIndex:
     def progress_dialog(self):
         d = QProgressDialog(None, dialog_flags)
-        d.setWindowTitle("索引中...")
+        d.setWindowTitle('索引中...')
         d.setFont(font())
         d.show()
         self.create(d)
@@ -31,7 +31,7 @@ class InverseIndex:
             with open(path.join('docs', p), 'r', encoding='utf-8') as f:
                 original = f.read()
                 replaced = original.replace('<br />', '')
-                filtered = re.sub("[\",.?!:;/<>()]", " ", replaced)
+                filtered = re.sub('[",.?!:;/<>()]', ' ', replaced)
                 words = list(filtered.split())
 
                 index = {}
@@ -48,7 +48,7 @@ class InverseIndex:
         with open(path.join('docs', '.inverse_index.txt'), 'w', encoding='utf-8') as f:
             f.writelines(str(result))
         dialog.close()
-        QMessageBox.information(dialog, "检索", "检索已完成")
+        QMessageBox.information(dialog, '检索', '检索已完成')
 
     @staticmethod
     def search(query):
