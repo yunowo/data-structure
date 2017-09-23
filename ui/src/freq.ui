@@ -58,7 +58,7 @@
    <property name="selectionBehavior">
     <enum>QAbstractItemView::SelectRows</enum>
    </property>
-   <attribute name="horizontalHeaderVisible">
+   <attribute name="horizontalHeaderHighlightSections">
     <bool>false</bool>
    </attribute>
    <attribute name="verticalHeaderVisible">

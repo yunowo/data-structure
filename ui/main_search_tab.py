@@ -2,7 +2,7 @@ from os import path, getcwd
 
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QTreeWidgetItem
+from PyQt5.QtWidgets import QTreeWidgetItem, QHeaderView
 
 from algorithm.inverse_index import InverseIndex
 from ui.search_highlighter import SearchHighlighter
@@ -37,8 +37,10 @@ class MainSearchTab:
         self.load_file(curr.data(0, 0))
 
     def setup(self):
-        self.w.list_results.setColumnCount(2)
-        self.w.list_results.setHeaderLabels(["     名称", "出现位置"])
+        self.w.list_results.setColumnCount(3)
+        self.w.list_results.setHeaderLabels(['     名称', '频度', '位置'])
+        for i in range(0, 2):
+            self.w.list_results.header().setSectionResizeMode(i, QHeaderView.ResizeToContents)
 
     def search_index(self):
         self.w.list_results.clear()
@@ -48,12 +50,13 @@ class MainSearchTab:
         for r in result:
             item = SearchResultItem()
             item.setText(0, r[0])
-            item.setText(1, ", ".join(str(n) for n in r[1]))
-            item.setIcon(0, QtGui.QIcon(":/icon/img/file_2.png"))
+            item.setText(1, str(len(r[1])))
+            item.setText(2, ', '.join(str(n) for n in r[1]))
+            item.setIcon(0, QtGui.QIcon(':/icon/img/file_2.png'))
             self.w.list_results.invisibleRootItem().addChild(item)
         self.w.list_results.sortByColumn(1, Qt.DescendingOrder)
         self.w.list_results.currentItemChanged.connect(self.on_file_change)
-        self.highlighter_index.update_patterns(f"\\b{self.w.edit_index.text()}\\b")
+        self.highlighter_index.update_patterns(f'\\b{self.w.edit_index.text()}\\b')
 
 
 class SearchResultItem(QTreeWidgetItem):
@@ -65,8 +68,8 @@ class SearchResultItem(QTreeWidgetItem):
             return len(t.split(','))
 
         column = self.treeWidget().sortColumn()
-        if column == 0:
+        if column == 0 or column == 1:
             return name_to_int(self.text(column)) < name_to_int(other.text(column))
-        if column == 1:
+        if column == 2:
             return list_to_count(self.text(column)) < list_to_count(other.text(column))
         return super(SearchResultItem, self).__lt__(other)

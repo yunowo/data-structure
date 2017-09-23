@@ -33,7 +33,7 @@ class Ui_encode_dialog(object):
         self.freq_table.setColumnCount(0)
         self.freq_table.setRowCount(0)
         self.freq_table.horizontalHeader().setVisible(False)
-        self.freq_table.verticalHeader().setVisible(False)
+        self.freq_table.verticalHeader().setHighlightSections(False)
         self.verticalLayout.addWidget(self.freq_table)
         self.button_graph = QtWidgets.QPushButton(encode_dialog)
         font = QtGui.QFont()

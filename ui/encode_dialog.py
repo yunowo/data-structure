@@ -32,6 +32,7 @@ class EncodeDialog(QDialog, Ui_encode_dialog):
         s = sorted(self.freq_map.items(), key=lambda t: -t[1][0])
         self.freq_table.setRowCount(3)
         self.freq_table.setColumnCount(len(s))
+        self.freq_table.setVerticalHeaderLabels(['字符', '频度', '编码'])
         for i, t in enumerate(s):
             num, freq = t[1]
             self.freq_table.setItem(0, i, QTableWidgetItem(t[0]))
@@ -51,4 +52,4 @@ class EncodeDialog(QDialog, Ui_encode_dialog):
             t = {c: t[1] for c, t in self.freq_map.items()}
             f.writelines(f'codes={t} <br />')
             f.writelines(f'encoded={self.encoded_str}<br />')
-        QMessageBox.information(self, '编码', f"编码后的文件已保存到 {file}", QMessageBox.Ok)
+        QMessageBox.information(self, '编码', f'编码后的文件已保存到 {file}', QMessageBox.Ok)

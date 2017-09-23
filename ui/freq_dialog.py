@@ -23,7 +23,7 @@ class FreqDialog(QDialog, Ui_freq_dialog):
         for file in paths:
             with open(path.join('docs', file), 'r+', encoding='utf-8') as f:
                 text = f.read().lower()
-                text = re.sub("[\",.?!:;/<>()]", "", text)
+                text = re.sub('[",.?!:;/<>()]', '', text)
                 for word in text.split():
                     if word not in d:
                         d[word] = 0
@@ -32,6 +32,7 @@ class FreqDialog(QDialog, Ui_freq_dialog):
 
         self.word_table.setRowCount(20)
         self.word_table.setColumnCount(2)
+        self.word_table.setHorizontalHeaderLabels(['字符', '频度'])
         for i, k in enumerate(d):
             self.word_table.setItem(i, 0, QTableWidgetItem(str(k)))
             self.word_table.setItem(i, 1, QTableWidgetItem(str(d[k])))

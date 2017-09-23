@@ -18,6 +18,7 @@ class MainWindow(QMainWindow, Ui_main_window):
         self.decode_tab = MainDecodeTab(self)
         self.tabs_container.currentChanged.connect(self.on_tab_change)
 
+        self.action_exit.triggered.connect(self.close)
         self.action_freq.triggered.connect(self.freq_dialog)
         self.action_about.triggered.connect(self.about_dialog)
 
@@ -30,7 +31,7 @@ class MainWindow(QMainWindow, Ui_main_window):
          }[i]()
 
     def closeEvent(self, event):
-        reply = QMessageBox.question(self, '确认', "真的要退出?", QMessageBox.Yes, QMessageBox.No)
+        reply = QMessageBox.question(self, '确认', '真的要退出?', QMessageBox.Yes, QMessageBox.No)
         if reply == QMessageBox.Yes:
             event.accept()
         else:

@@ -30,7 +30,7 @@ class Ui_freq_dialog(object):
         self.word_table.setObjectName("word_table")
         self.word_table.setColumnCount(0)
         self.word_table.setRowCount(0)
-        self.word_table.horizontalHeader().setVisible(False)
+        self.word_table.horizontalHeader().setHighlightSections(False)
         self.word_table.verticalHeader().setVisible(False)
 
         self.retranslateUi(freq_dialog)

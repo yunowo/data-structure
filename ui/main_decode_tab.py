@@ -32,6 +32,7 @@ class MainDecodeTab:
             sorted_codes = sorted(codes.items(), key=lambda t: len(t[1]))
             self.w.code_table.setColumnCount(len(sorted_codes))
             self.w.code_table.setRowCount(2)
+            self.w.code_table.setVerticalHeaderLabels(['字符', '编码'])
             for i, t in enumerate(sorted_codes):
                 self.w.code_table.setItem(0, i, QTableWidgetItem(t[0]))
                 self.w.code_table.setItem(1, i, QTableWidgetItem(t[1]))
