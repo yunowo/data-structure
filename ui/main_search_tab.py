@@ -1,7 +1,7 @@
 from os import path, getcwd
 
-from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QTreeWidgetItem, QHeaderView
 
 from algorithm.inverse_index import InverseIndex
@@ -49,12 +49,13 @@ class MainSearchTab:
         self.w.browse_text.clear()
         result = self.inverse_index.search(self.w.edit_index.text())
         result.sort(key=lambda p: int(p[0].split('_')[0]))
+        icon_2 = QIcon(':/icon/img/file_2.png')
         for r in result:
             item = SearchResultItem()
             item.setText(0, r[0])
             item.setText(1, str(len(r[1])))
             item.setText(2, ', '.join(str(n) for n in r[1]))
-            item.setIcon(0, QtGui.QIcon(':/icon/img/file_2.png'))
+            item.setIcon(0, icon_2)
             self.w.list_results.invisibleRootItem().addChild(item)
         self.w.list_results.sortByColumn(1, Qt.DescendingOrder)
         self.w.list_results.currentItemChanged.connect(self.on_file_change)

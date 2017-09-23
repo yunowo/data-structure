@@ -24,6 +24,8 @@ def setup_file_view(view, encoded):
 class SortFilter(QSortFilterProxyModel):
     def __init__(self, encoded):
         self.encoded = encoded
+        self.icon_1 = QIcon(f':/icon/img/file_1.png')
+        self.icon_3 = QIcon(f':/icon/img/file_3.png')
         super().__init__()
 
     def headerData(self, section, orientation, role=None):
@@ -40,7 +42,7 @@ class SortFilter(QSortFilterProxyModel):
 
     def data(self, index, role=None):
         if role == Qt.DecorationRole and index.column() == 0:
-            return QIcon(f':/icon/img/file_{3 if self.encoded else 1}.png')
+            return self.icon_3 if self.encoded else self.icon_1
         return super(SortFilter, self).data(index, role)
 
     def filterAcceptsRow(self, row, parent):
