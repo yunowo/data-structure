@@ -16,6 +16,7 @@ class EncodeDialog(QDialog, Ui_encode_dialog):
         self.button_graph.clicked.connect(self.show_graph)
         self.buttonbox.button(QDialogButtonBox.Ok).clicked.connect(self.accept)
         self.buttonbox.button(QDialogButtonBox.Save).clicked.connect(self.save_encoded)
+        self.buttonbox.button(QDialogButtonBox.Save).setText('保存')
 
         self.filename = filename
         self.text_to_encode = text

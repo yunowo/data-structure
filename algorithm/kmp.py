@@ -1,30 +1,22 @@
 class KMP:
-    @staticmethod
-    def partial(pattern):
-        """ Calculate partial match table: String -> [Int]"""
-        ret = [0]
-
-        for i in range(1, len(pattern)):
-            j = ret[i - 1]
-            while j > 0 and pattern[j] != pattern[i]:
-                j = ret[j - 1]
-            ret.append(j + 1 if pattern[j] == pattern[i] else j)
-        return ret
-
     def search(self, t, p):
-        """
-        KMP search main algorithm: String -> String -> [Int]
-        Return all the matching position of pattern string P in S
-        """
-        partial, ret, j = self.partial(p), [], 0
+        # partial match table
+        k = [0]
+        for i in range(1, len(p)):
+            j = k[i - 1]
+            while j > 0 and p[j] != p[i]:
+                j = k[j - 1]
+            k.append(j + 1 if p[j] == p[i] else j)
 
-        for i in range(len(t)):
-            while j > 0 and t[i] != p[j]:
-                j = partial[j - 1]
-            if t[i] == p[j]:
-                j += 1
-            if j == len(p):
-                ret.append(i - (j - 1))
-                j = 0
+        result = []
+        m = 0
+        for i, char in enumerate(t):
+            while m > 0 and char != p[m]:  # if m mismatches, move forward k[m-1] and restart
+                m = k[m - 1]
+            if char == p[m]:  # m matches, move forward 1
+                m += 1
+            if m == len(p):  # fully matches
+                result.append(i - (m - 1))
+                m = k[m - 1]
 
-        return ret
+        return result
