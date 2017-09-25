@@ -13,6 +13,8 @@ class MainSearchTab:
         self.w = main_window
 
         self.w.button_refresh_index.clicked.connect(self.refresh_index)
+        self.w.edit_index.textChanged.connect(self.search_index)
+        self.w.checkbox_match_case_index.stateChanged.connect(self.search_index)
         self.w.button_index.clicked.connect(self.search_index)
         self.highlighter_index = SearchHighlighter(self.w.browse_text.document())
 
@@ -47,8 +49,8 @@ class MainSearchTab:
     def search_index(self):
         self.w.list_results.clear()
         self.w.browse_text.clear()
-        result = self.inverse_index.search(self.w.edit_index.text())
-        result.sort(key=lambda p: int(p[0].split('_')[0]))
+        match_case = self.w.checkbox_match_case_index.isChecked()
+        result = self.inverse_index.search(self.w.edit_index.text(), match_case)
         icon_2 = QIcon(':/icon/img/file_2.png')
         for r in result:
             item = SearchResultItem()
@@ -59,6 +61,8 @@ class MainSearchTab:
             self.w.list_results.invisibleRootItem().addChild(item)
         self.w.list_results.sortByColumn(1, Qt.DescendingOrder)
         self.w.list_results.currentItemChanged.connect(self.on_file_change)
+        self.w.list_results.setCurrent
+        self.highlighter_index.match_case = match_case
         self.highlighter_index.update_patterns(f'\\b{self.w.edit_index.text()}\\b')
 
 

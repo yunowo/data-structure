@@ -1,5 +1,8 @@
-from PyQt5.QtCore import Qt, QRegExp
+import re
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QSyntaxHighlighter, QTextCharFormat
+
+from algorithm.kmp import KMP
 
 
 class SearchHighlighter(QSyntaxHighlighter):
@@ -9,20 +12,46 @@ class SearchHighlighter(QSyntaxHighlighter):
         hf = QTextCharFormat()
         hf.setBackground(Qt.yellow)
         self.highlight_format = hf
+        self.match_case = True
+        self.only_words = True
+        self.regex = False
         self.patterns = []
-        self.highlighting_rules = []
+        self.results = []
 
     def update_patterns(self, p):
-        self.patterns = [p]
-        self.highlighting_rules = [QRegExp(p)]
+        if p is '':
+            self.patterns = []
+            self.rehighlight()
+            return
+        if not self.match_case:
+            p = p.lower()
+        if self.only_words:
+            self.patterns = [f'\\b{p}\\b']
+        elif self.regex:
+            self.patterns = [p]
+        else:
+            self.patterns = [p]
         self.rehighlight()
 
     def highlightBlock(self, text):
-        for pattern in self.highlighting_rules:
-            expression = QRegExp(pattern)
-            index = expression.indexIn(text)
-            while index >= 0:
-                length = expression.matchedLength()
-                self.setFormat(index, length, self.highlight_format)
-                index = expression.indexIn(text, index + length)
+        self.results = []
+        if not self.patterns:
+            self.setCurrentBlockState(0)
+            return
+        if not self.match_case:
+            text = text.lower()
+        if self.only_words or self.regex:
+            for pattern in self.patterns:
+                p = re.compile(pattern)
+                m = p.search(text)
+                while m:
+                    self.setFormat(m.start(), m.end() - m.start(), self.highlight_format)
+                    self.results.append(m.start())
+                    m = p.search(text, m.end())
+        else:
+            for pattern in self.patterns:
+                indexes = KMP().search(text, pattern)
+                for i in indexes:
+                    self.setFormat(i, len(pattern), self.highlight_format)
+                self.results.append(*indexes)
         self.setCurrentBlockState(0)

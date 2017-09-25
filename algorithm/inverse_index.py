@@ -53,11 +53,18 @@ class InverseIndex:
         dialog.close()
         QMessageBox.information(dialog, '检索', '检索已完成')
 
-    def search(self, query):
+    def search(self, query, match_case):
         if self.index is None:
             with open(path.join('docs', '.inverse_index.txt'), 'r', encoding='utf-8') as f:
                 self.index = ast.literal_eval(f.readlines()[0])
-        if query in self.index:
-            return list(self.index[query].items())
+        if match_case:
+            if query in self.index:
+                return list(self.index[query].items())
+            else:
+                return []
         else:
-            return []
+            result = []
+            for k, v in self.index.items():
+                if query.lower() == k.lower():
+                    result.extend(list(v.items()))
+            return result

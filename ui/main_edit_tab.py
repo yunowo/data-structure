@@ -18,6 +18,9 @@ class MainEditTab:
         self.w.button_delete.clicked.connect(self.delete)
         self.w.button_add.clicked.connect(self.create_new_file)
         self.w.button_open.clicked.connect(self.import_file)
+        self.w.edit_search.textChanged.connect(self.search)
+        self.w.checkbox_match_case.stateChanged.connect(self.search)
+        self.w.checkbox_words.stateChanged.connect(self.search)
         self.w.button_search.clicked.connect(self.search)
         self.w.button_replace.clicked.connect(self.replace)
         self.w.button_replace_all.clicked.connect(self.replace_all)
@@ -118,8 +121,10 @@ class MainEditTab:
             self.current_row = row
 
     def search(self):
+        self.highlighter.match_case = self.w.checkbox_match_case.isChecked()
+        self.highlighter.only_words = self.w.checkbox_words.isChecked()
         q = self.w.edit_search.text()
-        self.highlighter.update_patterns(f'\\b{q}\\b')
+        self.highlighter.update_patterns(q)
 
     def replace(self):
         self.do_replace(1)
