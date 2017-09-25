@@ -132,9 +132,15 @@ class MainEditTab:
     def replace_all(self):
         self.do_replace(-1)
 
-    def do_replace(self, count):
-        src = self.w.edit_text.toPlainText()
+    def do_replace(self, c):
         s = self.w.edit_search.text()
         r = self.w.edit_replace.text()
-        t = src.replace(s, r, count)
+        t = self.w.edit_text.toPlainText()
+        delta, count = 0, 0
+        for i in self.highlighter.results:
+            t = t[:i + delta] + r + t[i + delta + len(s):]
+            delta += len(r) - len(s)
+            count += 1
+            if count >= c != -1:
+                break
         self.w.edit_text.setText(t.replace('\n', '<br />'))

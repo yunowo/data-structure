@@ -53,5 +53,5 @@ class SearchHighlighter(QSyntaxHighlighter):
                 indexes = KMP().search(text, pattern)
                 for i in indexes:
                     self.setFormat(i, len(pattern), self.highlight_format)
-                self.results.append(*indexes)
+                self.results.extend(indexes)
         self.setCurrentBlockState(0)

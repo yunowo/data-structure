@@ -61,7 +61,6 @@ class MainSearchTab:
             self.w.list_results.invisibleRootItem().addChild(item)
         self.w.list_results.sortByColumn(1, Qt.DescendingOrder)
         self.w.list_results.currentItemChanged.connect(self.on_file_change)
-        self.w.list_results.setCurrent
         self.highlighter_index.match_case = match_case
         self.highlighter_index.update_patterns(f'\\b{self.w.edit_index.text()}\\b')
 
