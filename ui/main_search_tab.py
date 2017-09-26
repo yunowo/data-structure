@@ -45,6 +45,7 @@ class MainSearchTab:
         for i in range(0, 2):
             self.w.list_results.header().setSectionResizeMode(i, QHeaderView.ResizeToContents)
         self.inverse_index = InverseIndex()
+        self.inverse_index.load_index()
 
     def search_index(self):
         self.w.list_results.clear()
