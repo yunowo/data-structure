@@ -15,6 +15,7 @@ class MainEditTab:
         self.w = main_window
 
         self.w.button_save.clicked.connect(self.save)
+        self.w.button_save_as.clicked.connect(self.save_as)
         self.w.button_encode.clicked.connect(self.encode_dialog)
         self.w.button_delete.clicked.connect(self.delete)
         self.w.button_add.clicked.connect(self.create_new_file)
@@ -95,7 +96,6 @@ class MainEditTab:
                     n.writelines(data)
             self.current_row = self.file_num
             self.load_files()
-            QMessageBox.information(self.w, "导入文件", f'已导入 {new_file}')
 
     def create_new_file(self):
         ok, name = input_dialog('新建文件', '输入文件名, 序号和扩展名将自动添加:')
@@ -105,13 +105,22 @@ class MainEditTab:
                 f.writelines('')
             self.current_row = self.file_num
             self.load_files()
-            QMessageBox.information(self.w, '新建文件', f'已创建 {filename}')
 
     def save(self):
         with open(path.join('docs', self.current_file), 'w+', encoding='utf-8') as f:
             text = self.w.edit_text.toPlainText().replace('\n', '<br />')
             f.write(text)
         QMessageBox.information(self.w, '保存', '文件已保存')
+
+    def save_as(self):
+        ok, name = input_dialog('另存为', '输入文件名, 序号和扩展名将自动添加:')
+        if ok:
+            filename = f'{self.get_next()}_{name}.txt'
+            with open(path.join('docs', filename), 'w+', encoding='utf-8') as f:
+                text = self.w.edit_text.toPlainText().replace('\n', '<br />')
+                f.write(text)
+            self.current_row = self.file_num
+            self.load_files()
 
     def delete(self):
         reply = QMessageBox.question(self.w, '确认', '真的要删除?', QMessageBox.Yes, QMessageBox.No)

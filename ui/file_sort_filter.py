@@ -40,7 +40,7 @@ class SortFilter(QSortFilterProxyModel):
                 return '修改日期'
         return super(SortFilter, self).headerData(section, orientation, role)
 
-    def data(self, index, role=None):
+    def data(self, index, role=Qt.DisplayRole):
         if role == Qt.DecorationRole and index.column() == 0:
             return self.icon_3 if self.encoded else self.icon_1
         return super(SortFilter, self).data(index, role)
