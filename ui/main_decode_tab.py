@@ -3,7 +3,7 @@ from os import path, getcwd
 
 from PyQt5.QtWidgets import QTableWidgetItem
 
-from algorithm.huffman import Huffman
+from algorithm.huffman import huffman_decode
 from ui.file_sort_filter import setup_file_view
 
 
@@ -37,7 +37,7 @@ class MainDecodeTab:
                 self.w.code_table.setItem(0, i, QTableWidgetItem(t[0]))
                 self.w.code_table.setItem(1, i, QTableWidgetItem(t[1]))
             self.w.code_table.resizeColumnsToContents()
-            self.w.browse_decoded.setText(Huffman.decode(encoded, codes))
+            self.w.browse_decoded.setText(huffman_decode(encoded, codes))
         self.w.statusbar.showMessage(path.join(getcwd(), 'docs', file))
 
     def on_file_change(self, curr):
