@@ -2,7 +2,7 @@ import re
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QSyntaxHighlighter, QTextCharFormat
 
-from algorithm.kmp import KMP
+from algorithm.kmp import search
 
 
 class SearchHighlighter(QSyntaxHighlighter):
@@ -50,7 +50,7 @@ class SearchHighlighter(QSyntaxHighlighter):
                     m = p.search(text, m.end())
         else:
             for pattern in self.patterns:
-                indexes = KMP().search(text, pattern)
+                indexes = search(text, pattern)
                 for i in indexes:
                     self.setFormat(i, len(pattern), self.highlight_format)
                 self.results.extend(indexes)

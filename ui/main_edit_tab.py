@@ -3,6 +3,7 @@ from os import path, getcwd, remove
 from PyQt5.QtCore import QItemSelectionModel
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
+from algorithm.kmp import replace
 from ui.common import input_dialog
 from ui.encode_dialog import EncodeDialog
 from ui.file_sort_filter import setup_file_view
@@ -136,11 +137,5 @@ class MainEditTab:
         s = self.w.edit_search.text()
         r = self.w.edit_replace.text()
         t = self.w.edit_text.toPlainText()
-        delta, count = 0, 0
-        for i in self.highlighter.results:
-            t = t[:i + delta] + r + t[i + delta + len(s):]
-            delta += len(r) - len(s)
-            count += 1
-            if count >= c != -1:
-                break
+        t = replace(c, t, r, s, self.highlighter.results)
         self.w.edit_text.setText(t.replace('\n', '<br />'))
