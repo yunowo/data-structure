@@ -74,3 +74,15 @@ class SortFilter(QSortFilterProxyModel):
         if index1.column() == 1:
             return size_to_int(index1) < size_to_int(index2)
         return super(SortFilter, self).lessThan(index1, index2)
+
+    def docs_root(self):
+        def find_model(root):
+            if root.data() == 'docs':
+                return root
+            else:
+                return find_model(root.child(0, 0))
+
+        return find_model(self.index(0, 0))
+
+    def file_num(self):
+        return self.rowCount(self.docs_root())

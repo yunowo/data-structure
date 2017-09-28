@@ -1,6 +1,7 @@
 import ast
 from os import path, getcwd
 
+from PyQt5.QtCore import QItemSelectionModel
 from PyQt5.QtWidgets import QTableWidgetItem
 
 from algorithm.huffman import huffman_decode
@@ -14,6 +15,7 @@ class MainDecodeTab:
         self.model = None
         self.filtered_model = None
         self.current_file = None
+        self.current_row = 0
         self.load_files()
 
     def load_file(self, file):
@@ -46,7 +48,20 @@ class MainDecodeTab:
         name = self.model.fileName(curr.indexes()[0])
         self.load_file(name)
         self.current_file = name
+        self.current_row = curr.indexes()[0].row()
+
+    def select_current_row(self, row):
+        index = self.filtered_model.docs_root().child(row, 0)
+        self.w.list_encoded.selectionModel().select(index,
+                                                    QItemSelectionModel.ClearAndSelect | QItemSelectionModel.Rows)
+        self.w.list_encoded.scrollTo(index)
+
+    def folder_loaded(self):
+        if self.current_file is None:
+            self.select_current_row(0)
+        self.select_current_row(self.current_row)
 
     def load_files(self):
         self.model, self.filtered_model = setup_file_view(self.w.list_encoded, True)
+        self.model.directoryLoaded.connect(self.folder_loaded)
         self.w.list_encoded.selectionModel().selectionChanged.connect(self.on_file_change)
