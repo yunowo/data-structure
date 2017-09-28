@@ -13,7 +13,6 @@ class MainDecodeTab:
         self.w = main_window
 
         self.model = None
-        self.filtered_model = None
         self.current_file = None
         self.current_row = 0
         self.load_files()
@@ -45,13 +44,13 @@ class MainDecodeTab:
     def on_file_change(self, curr):
         if not curr:
             return
-        name = self.model.fileName(curr.indexes()[0])
+        name = self.model.data(curr.indexes()[0])
         self.load_file(name)
         self.current_file = name
         self.current_row = curr.indexes()[0].row()
 
     def select_current_row(self, row):
-        index = self.filtered_model.docs_root().child(row, 0)
+        index = self.model.docs_root().child(row, 0)
         self.w.list_encoded.selectionModel().select(index,
                                                     QItemSelectionModel.ClearAndSelect | QItemSelectionModel.Rows)
         self.w.list_encoded.scrollTo(index)
@@ -62,6 +61,6 @@ class MainDecodeTab:
         self.select_current_row(self.current_row)
 
     def load_files(self):
-        self.model, self.filtered_model = setup_file_view(self.w.list_encoded, True)
-        self.model.directoryLoaded.connect(self.folder_loaded)
+        fs_model, self.model = setup_file_view(self.w.list_encoded, True)
+        fs_model.directoryLoaded.connect(self.folder_loaded)
         self.w.list_encoded.selectionModel().selectionChanged.connect(self.on_file_change)

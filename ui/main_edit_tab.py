@@ -29,7 +29,6 @@ class MainEditTab:
         self.highlighter = SearchHighlighter(self.w.edit_text.document())
 
         self.model = None
-        self.filtered_model = None
         self.current_file = None
         self.current_row = 0
         self.load_files()
@@ -51,13 +50,13 @@ class MainEditTab:
     def on_file_change(self, curr):
         if not curr:
             return
-        name = self.model.fileName(curr.indexes()[0])
+        name = self.model.data(curr.indexes()[0])
         self.load_file(name)
         self.current_file = name
         self.current_row = curr.indexes()[0].row()
 
     def select_current_row(self, row):
-        index = self.filtered_model.docs_root().child(row, 0)
+        index = self.model.docs_root().child(row, 0)
         self.w.list_files.selectionModel().select(index, QItemSelectionModel.ClearAndSelect | QItemSelectionModel.Rows)
         self.w.list_files.scrollTo(index)
 
@@ -68,14 +67,14 @@ class MainEditTab:
 
     def load_files(self, scroll_to_last=False):
         if scroll_to_last:
-            self.current_row = self.filtered_model.file_num()
-        self.model, self.filtered_model = setup_file_view(self.w.list_files, False)
-        self.model.directoryLoaded.connect(self.folder_loaded)
+            self.current_row = self.model.file_num()
+        fs_model, self.model = setup_file_view(self.w.list_files, False)
+        fs_model.directoryLoaded.connect(self.folder_loaded)
         self.w.list_files.selectionModel().selectionChanged.connect(self.on_file_change)
 
     def get_next(self):
-        index = self.filtered_model.docs_root().child(self.filtered_model.file_num() - 1, 0)
-        data = self.filtered_model.data(index)
+        index = self.model.docs_root().child(self.model.file_num() - 1, 0)
+        data = self.model.data(index)
         return int(data.split('_')[0]) + 1
 
     def import_file(self):
