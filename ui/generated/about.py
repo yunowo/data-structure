@@ -48,6 +48,6 @@ class Ui_about_dialog(object):
         _translate = QtCore.QCoreApplication.translate
         about_dialog.setWindowTitle(_translate("about_dialog", "关于"))
         self.header.setText(_translate("about_dialog", "面向英文文献的编辑与检索系统"))
-        self.info.setText(_translate("about_dialog", "<html><head/><body><p>Version 0.1<br/></p><p>Copyright (C) 2017 Yun Liu</p></body></html>"))
+        self.info.setText(_translate("about_dialog", "<html><head/><body><p>Version 1.0<br/></p><p>Copyright (C) 2017 Yun Liu</p></body></html>"))
 
 from . import res_rc

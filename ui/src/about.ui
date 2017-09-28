@@ -64,7 +64,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Version 0.1&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Copyright (C) 2017 Yun Liu&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Version 1.0&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Copyright (C) 2017 Yun Liu&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>

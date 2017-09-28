@@ -26,8 +26,8 @@ class SearchHighlighter(QSyntaxHighlighter):
         if not self.match_case:
             p = p.lower()
         if self.only_words:
-            p = re.sub('[\",.?!:;/<>()]', ' ', p)
-            self.patterns = [f'\\b{p}\\b']
+            p = re.sub('[\",.?!:;/<>()]', '', p)
+            self.patterns = [f'\\b{p}\\b'] if p else []
         elif self.regex:
             self.patterns = [p]
         else:
