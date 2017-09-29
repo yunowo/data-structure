@@ -4,7 +4,7 @@ from PyQt5.QtCore import QItemSelectionModel
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
 from algorithm.kmp import replace
-from ui.common import input_dialog
+from ui.common import input_dialog, selection_flags
 from ui.encode_dialog import EncodeDialog
 from ui.file_sort_filter import setup_file_view
 from ui.search_highlighter import SearchHighlighter
@@ -31,7 +31,7 @@ class MainEditTab:
         self.model = None
         self.current_file = None
         self.current_row = 0
-        self.load_files()
+        self.setup()
 
     def encode_dialog(self):
         w = EncodeDialog(self.current_file, self.w.edit_text.toPlainText())
@@ -57,7 +57,7 @@ class MainEditTab:
 
     def select_current_row(self, row):
         index = self.model.docs_root().child(row, 0)
-        self.w.list_files.selectionModel().select(index, QItemSelectionModel.ClearAndSelect | QItemSelectionModel.Rows)
+        self.w.list_files.selectionModel().select(index, selection_flags)
         self.w.list_files.scrollTo(index)
 
     def folder_loaded(self):
@@ -65,9 +65,7 @@ class MainEditTab:
             self.select_current_row(0)
         self.select_current_row(self.current_row)
 
-    def load_files(self, scroll_to_last=False):
-        if scroll_to_last:
-            self.current_row = self.model.file_num()
+    def setup(self):
         fs_model, self.model = setup_file_view(self.w.list_files, False)
         fs_model.directoryLoaded.connect(self.folder_loaded)
         self.w.list_files.selectionModel().selectionChanged.connect(self.on_file_change)
@@ -85,7 +83,7 @@ class MainEditTab:
                 data = f.read().replace('\n', '<br />')
                 with open(path.join('docs', new_file), 'w+', encoding='utf-8') as n:
                     n.writelines(data)
-            self.load_files(scroll_to_last=True)
+            self.current_row = self.model.file_num()
 
     def create_new_file(self):
         ok, name = input_dialog('新建文件', '输入文件名, 序号和扩展名将自动添加:')
@@ -93,7 +91,7 @@ class MainEditTab:
             filename = f'{self.get_next()}_{name}.txt'
             with open(path.join('docs', filename), 'w+', encoding='utf-8') as f:
                 f.writelines('')
-            self.load_files(scroll_to_last=True)
+            self.current_row = self.model.file_num()
 
     def save(self):
         with open(path.join('docs', self.current_file), 'w+', encoding='utf-8') as f:
@@ -108,15 +106,13 @@ class MainEditTab:
             with open(path.join('docs', filename), 'w+', encoding='utf-8') as f:
                 text = self.w.edit_text.toPlainText().replace('\n', '<br />')
                 f.write(text)
-            self.load_files(scroll_to_last=True)
+            self.current_row = self.model.file_num()
 
     def delete(self):
         reply = QMessageBox.question(self.w, '确认', '真的要删除?', QMessageBox.Yes, QMessageBox.No)
         if reply == QMessageBox.Yes:
             remove(path.join('docs', self.current_file))
-            row = self.w.list_files.selectedIndexes()[0].row() - 1
-            self.load_files()
-            self.current_row = row
+            self.current_row = self.w.list_files.selectedIndexes()[0].row() - 1
 
     def search(self):
         self.highlighter.match_case = self.w.checkbox_match_case.isChecked()

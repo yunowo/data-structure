@@ -1,8 +1,9 @@
 from PyQt5 import QtGui
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QItemSelectionModel
 from PyQt5.QtWidgets import QInputDialog
 
 dialog_flags = Qt.Dialog | Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowCloseButtonHint | Qt.MSWindowsFixedSizeDialogHint
+selection_flags = QItemSelectionModel.ClearAndSelect | QItemSelectionModel.Rows
 
 
 def font():

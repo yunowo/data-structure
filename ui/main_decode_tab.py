@@ -5,6 +5,7 @@ from PyQt5.QtCore import QItemSelectionModel
 from PyQt5.QtWidgets import QTableWidgetItem
 
 from algorithm.huffman import huffman_decode
+from ui.common import selection_flags
 from ui.file_sort_filter import setup_file_view
 
 
@@ -15,7 +16,7 @@ class MainDecodeTab:
         self.model = None
         self.current_file = None
         self.current_row = 0
-        self.load_files()
+        self.setup()
 
     def load_file(self, file):
         with open(path.join('docs', file), 'r+', encoding='utf-8') as f:
@@ -51,8 +52,7 @@ class MainDecodeTab:
 
     def select_current_row(self, row):
         index = self.model.docs_root().child(row, 0)
-        self.w.list_encoded.selectionModel().select(index,
-                                                    QItemSelectionModel.ClearAndSelect | QItemSelectionModel.Rows)
+        self.w.list_encoded.selectionModel().select(index, selection_flags)
         self.w.list_encoded.scrollTo(index)
 
     def folder_loaded(self):
@@ -60,7 +60,7 @@ class MainDecodeTab:
             self.select_current_row(0)
         self.select_current_row(self.current_row)
 
-    def load_files(self):
+    def setup(self):
         fs_model, self.model = setup_file_view(self.w.list_encoded, True)
         fs_model.directoryLoaded.connect(self.folder_loaded)
         self.w.list_encoded.selectionModel().selectionChanged.connect(self.on_file_change)
