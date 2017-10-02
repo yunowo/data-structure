@@ -1,10 +1,11 @@
 from os import path, getcwd, remove
 
 from PyQt5.QtCore import QItemSelectionModel
-from PyQt5.QtWidgets import QFileDialog, QMessageBox
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QFileDialog, QMessageBox, QLineEdit
 
 from algorithm.kmp import replace
-from ui.common import input_dialog, selection_flags
+from ui.common import input_dialog, selection_flags, search_validator
 from ui.encode_dialog import EncodeDialog
 from ui.file_sort_filter import setup_file_view
 from ui.search_highlighter import SearchHighlighter
@@ -23,9 +24,11 @@ class MainEditTab:
         self.w.edit_search.textChanged.connect(self.search)
         self.w.checkbox_match_case.stateChanged.connect(self.search)
         self.w.checkbox_words.stateChanged.connect(self.search)
-        self.w.button_search.clicked.connect(self.search)
         self.w.button_replace.clicked.connect(self.replace)
         self.w.button_replace_all.clicked.connect(self.replace_all)
+        self.w.edit_search.setValidator(search_validator())
+        self.w.edit_search.addAction(QIcon(':/icon/img/search.png'), QLineEdit.LeadingPosition)
+        self.w.edit_replace.addAction(QIcon(':/icon/img/replace.png'), QLineEdit.LeadingPosition)
         self.highlighter = SearchHighlighter(self.w.edit_text.document())
 
         self.model = None

@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>600</height>
+    <height>650</height>
    </rect>
   </property>
   <property name="font">
@@ -29,9 +29,19 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabs_container">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>22</width>
+        <height>22</height>
+       </size>
       </property>
       <widget class="QWidget" name="tab_edit">
+       <attribute name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/icon/img/edit.png</normaloff>:/icon/img/edit.png</iconset>
+       </attribute>
        <attribute name="title">
         <string>编辑</string>
        </attribute>
@@ -175,34 +185,22 @@
                   <property name="dragEnabled">
                    <bool>true</bool>
                   </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QToolButton" name="button_search_clear">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
+                  <property name="placeholderText">
+                   <string>关键词</string>
                   </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="icon">
-                   <iconset>
-                    <normalon>:/icon/img/clear.png</normalon>
-                   </iconset>
-                  </property>
-                  <property name="iconSize">
-                   <size>
-                    <width>24</width>
-                    <height>24</height>
-                   </size>
+                  <property name="clearButtonEnabled">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QCheckBox" name="checkbox_match_case">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="text">
                    <string>区分大小写</string>
                   </property>
@@ -213,11 +211,24 @@
                 </item>
                 <item>
                  <widget class="QCheckBox" name="checkbox_words">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="text">
                    <string>单词</string>
                   </property>
                   <property name="checked">
                    <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="matches_counter">
+                  <property name="text">
+                   <string>0 个匹配</string>
                   </property>
                  </widget>
                 </item>
@@ -231,24 +242,6 @@
                   </property>
                   <property name="text">
                    <string>正则表达式</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="button_search">
-                  <property name="text">
-                   <string>   查找   </string>
-                  </property>
-                  <property name="icon">
-                   <iconset>
-                    <normalon>:/icon/img/search.png</normalon>
-                   </iconset>
-                  </property>
-                  <property name="iconSize">
-                   <size>
-                    <width>24</width>
-                    <height>24</height>
-                   </size>
                   </property>
                  </widget>
                 </item>
@@ -300,6 +293,15 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="dragEnabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="placeholderText">
+                   <string>替换为</string>
+                  </property>
+                  <property name="clearButtonEnabled">
+                   <bool>true</bool>
+                  </property>
                  </widget>
                 </item>
                 <item>
@@ -309,7 +311,7 @@
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normalon>:/icon/img/replace.png</normalon>
+                    <normalon>:/icon/img/replace_one.png</normalon>
                    </iconset>
                   </property>
                   <property name="iconSize">
@@ -352,6 +354,10 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tab_index">
+       <attribute name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/icon/img/index.png</normaloff>:/icon/img/index.png</iconset>
+       </attribute>
        <attribute name="title">
         <string>检索</string>
        </attribute>
@@ -368,6 +374,21 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="dragEnabled">
+               <bool>true</bool>
+              </property>
+              <property name="placeholderText">
+               <string>关键词</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item>
@@ -377,42 +398,6 @@
               </property>
               <property name="checked">
                <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="button_index">
-              <property name="text">
-               <string>检索</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normalon>:/icon/img/search.png</normalon>
-               </iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="button_refresh_index">
-              <property name="text">
-               <string>刷新索引</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normalon>:/icon/img/refresh.png</normalon>
-               </iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
               </property>
              </widget>
             </item>
@@ -427,6 +412,12 @@
              <bool>false</bool>
             </property>
             <widget class="QTreeWidget" name="list_results">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>1</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>200</width>
@@ -438,6 +429,12 @@
                <width>300</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="sizeAdjustPolicy">
+              <enum>QAbstractScrollArea::AdjustToContents</enum>
+             </property>
+             <property name="editTriggers">
+              <set>QAbstractItemView::NoEditTriggers</set>
              </property>
              <property name="rootIsDecorated">
               <bool>false</bool>
@@ -466,6 +463,10 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tab_decode">
+       <attribute name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/icon/img/encode.png</normaloff>:/icon/img/encode.png</iconset>
+       </attribute>
        <attribute name="title">
         <string>解码</string>
        </attribute>
@@ -480,8 +481,8 @@
           </property>
           <widget class="QTreeView" name="list_encoded">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-             <horstretch>0</horstretch>
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>1</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
@@ -497,6 +498,12 @@
              <height>16777215</height>
             </size>
            </property>
+           <property name="sizeAdjustPolicy">
+            <enum>QAbstractScrollArea::AdjustToContents</enum>
+           </property>
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
            <property name="rootIsDecorated">
             <bool>false</bool>
            </property>
@@ -504,49 +511,195 @@
             <bool>true</bool>
            </property>
           </widget>
+          <widget class="QTextBrowser" name="browse_encoded">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
+           </property>
+          </widget>
           <widget class="QSplitter" name="splitter_2">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Vertical</enum>
            </property>
            <property name="childrenCollapsible">
             <bool>false</bool>
            </property>
-           <widget class="QTextBrowser" name="browse_encoded"/>
-           <widget class="QSplitter" name="splitter_3">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
+           <widget class="QTableWidget" name="code_table">
+            <property name="minimumSize">
+             <size>
+              <width>200</width>
+              <height>80</height>
+             </size>
             </property>
-            <property name="childrenCollapsible">
+            <property name="sizeAdjustPolicy">
+             <enum>QAbstractScrollArea::AdjustToContents</enum>
+            </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::SingleSelection</enum>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectColumns</enum>
+            </property>
+            <attribute name="horizontalHeaderVisible">
              <bool>false</bool>
-            </property>
-            <widget class="QTableWidget" name="code_table">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>80</height>
-              </size>
-             </property>
-             <property name="sizeAdjustPolicy">
-              <enum>QAbstractScrollArea::AdjustToContents</enum>
-             </property>
-             <property name="editTriggers">
-              <set>QAbstractItemView::NoEditTriggers</set>
-             </property>
-             <property name="selectionMode">
-              <enum>QAbstractItemView::SingleSelection</enum>
-             </property>
-             <property name="selectionBehavior">
-              <enum>QAbstractItemView::SelectColumns</enum>
-             </property>
-             <attribute name="horizontalHeaderVisible">
-              <bool>false</bool>
-             </attribute>
-             <attribute name="verticalHeaderHighlightSections">
-              <bool>false</bool>
-             </attribute>
-            </widget>
-            <widget class="QTextBrowser" name="browse_decoded"/>
+            </attribute>
+            <attribute name="verticalHeaderHighlightSections">
+             <bool>false</bool>
+            </attribute>
            </widget>
+           <widget class="QTextBrowser" name="browse_decoded"/>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_stats">
+       <attribute name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/icon/img/stats.png</normaloff>:/icon/img/stats.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>统计</string>
+       </attribute>
+       <layout class="QGridLayout" name="tab_stats_container_container">
+        <item row="0" column="0">
+         <widget class="QTabWidget" name="tab_stats_container">
+          <property name="tabPosition">
+           <enum>QTabWidget::South</enum>
+          </property>
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <widget class="QWidget" name="tab_freq">
+           <attribute name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/icon/img/bar.png</normaloff>:/icon/img/bar.png</iconset>
+           </attribute>
+           <attribute name="title">
+            <string>词频</string>
+           </attribute>
+           <layout class="QGridLayout" name="tab_freq_container">
+            <item row="0" column="0">
+             <widget class="QSplitter" name="splitter_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="childrenCollapsible">
+               <bool>false</bool>
+              </property>
+              <widget class="QWidget" name="container_1" native="true">
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>200</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout">
+                <item>
+                 <widget class="QTableWidget" name="word_table">
+                  <property name="sizeAdjustPolicy">
+                   <enum>QAbstractScrollArea::AdjustToContents</enum>
+                  </property>
+                  <property name="editTriggers">
+                   <set>QAbstractItemView::NoEditTriggers</set>
+                  </property>
+                  <property name="selectionMode">
+                   <enum>QAbstractItemView::SingleSelection</enum>
+                  </property>
+                  <property name="selectionBehavior">
+                   <enum>QAbstractItemView::SelectRows</enum>
+                  </property>
+                  <attribute name="horizontalHeaderHighlightSections">
+                   <bool>false</bool>
+                  </attribute>
+                  <attribute name="verticalHeaderHighlightSections">
+                   <bool>false</bool>
+                  </attribute>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="container_1_0">
+                  <item>
+                   <widget class="QLabel" name="num_label">
+                    <property name="text">
+                     <string>列表最多显示</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="num_combo">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="editable">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="verticalLayoutWidget">
+               <layout class="QVBoxLayout" name="bar_graph_container"/>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_cloud">
+           <attribute name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/icon/img/cloud.png</normaloff>:/icon/img/cloud.png</iconset>
+           </attribute>
+           <attribute name="title">
+            <string>词云</string>
+           </attribute>
+           <layout class="QGridLayout" name="tab_cloud_container">
+            <item row="0" column="0">
+             <widget class="QLabel" name="word_cloud">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="cloud_button">
+              <property name="text">
+               <string>Refresh</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>
@@ -565,11 +718,12 @@
      <height>23</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="menu_0">
     <property name="title">
      <string>检索</string>
     </property>
-    <addaction name="action_freq"/>
+    <addaction name="action_filter_toggle"/>
+    <addaction name="action_refresh_index"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
@@ -577,30 +731,115 @@
     </property>
     <addaction name="action_about"/>
    </widget>
-   <widget class="QMenu" name="menu_3">
+   <widget class="QMenu" name="menu_1">
     <property name="title">
      <string>文件</string>
     </property>
+    <addaction name="action_new"/>
+    <addaction name="action_import"/>
+    <addaction name="separator"/>
+    <addaction name="action_save"/>
+    <addaction name="action_save_as"/>
+    <addaction name="action_encode"/>
+    <addaction name="action_delete"/>
+    <addaction name="separator"/>
     <addaction name="action_exit"/>
    </widget>
-   <addaction name="menu_3"/>
-   <addaction name="menu"/>
+   <addaction name="menu_1"/>
+   <addaction name="menu_0"/>
    <addaction name="menu_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="action_freq">
+  <action name="action_refresh_index">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/img/refresh.png</normaloff>:/icon/img/refresh.png</iconset>
+   </property>
    <property name="text">
-    <string>词汇出现频率</string>
+    <string>刷新索引</string>
    </property>
   </action>
   <action name="action_about">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/img/about.png</normaloff>:/icon/img/about.png</iconset>
+   </property>
    <property name="text">
     <string>关于</string>
    </property>
   </action>
   <action name="action_exit">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/img/exit.png</normaloff>:/icon/img/exit.png</iconset>
+   </property>
    <property name="text">
     <string>退出</string>
+   </property>
+  </action>
+  <action name="action_new">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/img/add.png</normaloff>:/icon/img/add.png</iconset>
+   </property>
+   <property name="text">
+    <string>新建</string>
+   </property>
+  </action>
+  <action name="action_import">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/img/import.png</normaloff>:/icon/img/import.png</iconset>
+   </property>
+   <property name="text">
+    <string>导入</string>
+   </property>
+  </action>
+  <action name="action_save">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/img/save.png</normaloff>:/icon/img/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>保存</string>
+   </property>
+  </action>
+  <action name="action_save_as">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/img/save_as.png</normaloff>:/icon/img/save_as.png</iconset>
+   </property>
+   <property name="text">
+    <string>另存为</string>
+   </property>
+  </action>
+  <action name="action_encode">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/img/encode.png</normaloff>:/icon/img/encode.png</iconset>
+   </property>
+   <property name="text">
+    <string>编码</string>
+   </property>
+  </action>
+  <action name="action_delete">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icon/img/delete.png</normaloff>:/icon/img/delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>删除</string>
+   </property>
+  </action>
+  <action name="action_filter_toggle">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>过滤常见单词</string>
    </property>
   </action>
  </widget>

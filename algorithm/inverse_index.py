@@ -1,15 +1,27 @@
 import ast
 import re
+from collections import OrderedDict
 from os import walk, path
 from PyQt5.QtWidgets import QProgressDialog, QApplication, QMessageBox
 
 from ui.common import dialog_flags, font
 
 
+def save_to(file, src):
+    with open(path.join('docs', file), 'w', encoding='utf-8') as f:
+        f.writelines(str(src))
+
+
+def load_from(file):
+    with open(path.join('docs', file), 'r', encoding='utf-8') as f:
+        return ast.literal_eval(f.readlines()[0])
+
+
 class InverseIndex:
     def __init__(self):
         self.index = None
         self.index_lower = None
+        self.count = None
 
     def progress_dialog(self):
         d = QProgressDialog(None, dialog_flags)
@@ -19,7 +31,7 @@ class InverseIndex:
         self.create(d)
 
     def create(self, dialog):
-        result, result_lower = {}, {}
+        result, result_lower, count = {}, {}, {}
         paths = [fn for fn in next(walk('docs'))[2]]
         paths = list(filter(lambda p: not p.startswith('.'), paths))
         paths = list(filter(lambda p: 'encoded' not in p, paths))
@@ -53,23 +65,28 @@ class InverseIndex:
                 run(words, result)
                 run(words_lower, result_lower)
 
-        with open(path.join('docs', '.inverse_index.txt'), 'w', encoding='utf-8') as f:
-            f.writelines(str(result))
-        with open(path.join('docs', '.inverse_index_lower.txt'), 'w', encoding='utf-8') as f:
-            f.writelines(str(result_lower))
-        self.index, self.index_lower = result, result_lower
+                words_lower = map(lambda w: w.lower(), words)
+                for i,w in enumerate(words_lower):
+                    if w not in count:
+                        count[w] = 0
+                    count[w] += 1
+        count = dict(OrderedDict(sorted(count.items(), key=lambda t: -t[1])))
+
+        self.index, self.index_lower, self.count = result, result_lower, count
+        save_to('.inverse_index.txt', result)
+        save_to('.inverse_index_lower.txt', result_lower)
+        save_to('.frequency_count.txt', count)
         dialog.close()
         QMessageBox.information(dialog, '检索', '检索已完成')
 
-    def load_index(self):
-        if self.index is None or self.index_lower is None:
-            with open(path.join('docs', '.inverse_index.txt'), 'r', encoding='utf-8') as f:
-                self.index = ast.literal_eval(f.readlines()[0])
-            with open(path.join('docs', '.inverse_index_lower.txt'), 'r', encoding='utf-8') as f:
-                self.index_lower = ast.literal_eval(f.readlines()[0])
+    def load_indexes(self):
+        if self.index is None or self.index_lower is None or self.count is None:
+            self.index = load_from('.inverse_index.txt')
+            self.index_lower = load_from('.inverse_index_lower.txt')
+            self.count = load_from('.frequency_count.txt')
 
     def search(self, query, match_case):
-        self.load_index()
+        self.load_indexes()
         if match_case:
             if query in self.index:
                 return list(self.index[query].items())

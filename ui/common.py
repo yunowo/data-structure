@@ -1,5 +1,6 @@
 from PyQt5 import QtGui
-from PyQt5.QtCore import Qt, QItemSelectionModel
+from PyQt5.QtCore import Qt, QItemSelectionModel, QRegExp
+from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtWidgets import QInputDialog
 
 dialog_flags = Qt.Dialog | Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowCloseButtonHint | Qt.MSWindowsFixedSizeDialogHint
@@ -21,3 +22,7 @@ def input_dialog(title, label):
     ok = dialog.exec_()
     filename = dialog.textValue()
     return ok, filename
+
+
+def search_validator():
+    return QRegExpValidator(QRegExp('\w+'))

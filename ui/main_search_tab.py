@@ -2,7 +2,7 @@ from os import path, getcwd
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QTreeWidgetItem, QHeaderView
+from PyQt5.QtWidgets import QTreeWidgetItem, QHeaderView, QLineEdit
 
 from algorithm.inverse_index import InverseIndex
 from ui.search_highlighter import SearchHighlighter
@@ -12,18 +12,13 @@ class MainSearchTab:
     def __init__(self, main_window):
         self.w = main_window
 
-        self.w.button_refresh_index.clicked.connect(self.refresh_index)
         self.w.edit_index.textChanged.connect(self.search_index)
+        self.w.edit_index.addAction(QIcon(':/icon/img/index.png'), QLineEdit.LeadingPosition)
         self.w.checkbox_match_case_index.stateChanged.connect(self.search_index)
-        self.w.button_index.clicked.connect(self.search_index)
         self.highlighter_index = SearchHighlighter(self.w.browse_text.document())
 
         self.current_file = None
-        self.inverse_index = None
         self.setup()
-
-    def refresh_index(self):
-        self.inverse_index.progress_dialog()
 
     def load_file(self, file):
         with open(path.join('docs', file), 'r+', encoding='utf-8') as f:
@@ -44,14 +39,12 @@ class MainSearchTab:
         self.w.list_results.setHeaderLabels(['     名称', '频度', '位置'])
         for i in range(0, 2):
             self.w.list_results.header().setSectionResizeMode(i, QHeaderView.ResizeToContents)
-        self.inverse_index = InverseIndex()
-        self.inverse_index.load_index()
 
     def search_index(self):
         self.w.list_results.clear()
         self.w.browse_text.clear()
         match_case = self.w.checkbox_match_case_index.isChecked()
-        result = self.inverse_index.search(self.w.edit_index.text(), match_case)
+        result = self.w.inverse_index.search(self.w.edit_index.text(), match_case)
         icon_2 = QIcon(':/icon/img/file_2.png')
         for r in result:
             item = SearchResultItem()
