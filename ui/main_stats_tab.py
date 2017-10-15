@@ -1,5 +1,6 @@
 from itertools import islice
 from os import path, getcwd
+from threading import Thread
 
 from PIL import ImageQt
 from PyQt5.QtChart import QChart, QChartView, QHorizontalBarSeries, QBarSet, QBarCategoryAxis, QValueAxis
@@ -15,7 +16,7 @@ class MainStatsTab:
         self.d = self.w.inverse_index.count
         self.index_word()
         self.show_bar_chart()
-        self.w.tab_stats_container.currentChanged.connect(self.word_cloud)
+        self.w.word_cloud.resizeEvent = self.resize_event
 
     def index_word(self):
         self.w.word_table.setRowCount(len(self.d))
@@ -61,9 +62,10 @@ class MainStatsTab:
         cv.setRenderHint(QPainter.Antialiasing)
         self.w.bar_chart_container.addWidget(cv)
 
-    def word_cloud(self, index):
-        if index == 0:
-            return
+    def resize_event(self, size):
+        Thread(target=self.word_cloud).start()
+
+    def word_cloud(self):
         width, height = self.w.word_cloud.width(), self.w.word_cloud.height() - 5
         font = path.join(getcwd(), 'ui', 'src', 'font', 'Quicksand-Regular.ttf')
         wc = WordCloud(width=width, height=height, background_color='white', colormap='jet', font_path=font,

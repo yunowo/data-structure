@@ -769,7 +769,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string/>
+               <string>正在生成...</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
