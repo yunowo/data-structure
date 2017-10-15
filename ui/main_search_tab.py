@@ -15,7 +15,7 @@ class MainSearchTab:
         self.w.edit_index.textChanged.connect(self.search_index)
         self.w.edit_index.addAction(QIcon(':/icon/img/index.png'), QLineEdit.LeadingPosition)
         self.w.checkbox_match_case_index.stateChanged.connect(self.search_index)
-        self.highlighter_index = SearchHighlighter(self.w.browse_text.document())
+        self.highlighter_index = SearchHighlighter(self.w.browse_text.document(), self.w.matches_counter_1)
 
         self.current_file = None
         self.setup()

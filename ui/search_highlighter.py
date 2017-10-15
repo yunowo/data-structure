@@ -6,8 +6,9 @@ from algorithm.kmp import search
 
 
 class SearchHighlighter(QSyntaxHighlighter):
-    def __init__(self, parent=None):
+    def __init__(self, parent, counter):
         super(SearchHighlighter, self).__init__(parent)
+        self.counter = counter
 
         hf = QTextCharFormat()
         hf.setBackground(Qt.yellow)
@@ -56,3 +57,4 @@ class SearchHighlighter(QSyntaxHighlighter):
                     self.setFormat(i, len(pattern), self.highlight_format)
                 self.results.extend(indexes)
         self.setCurrentBlockState(0)
+        self.counter.setText(f'{len(self.results)} 个匹配')

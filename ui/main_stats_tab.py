@@ -14,9 +14,8 @@ class MainStatsTab:
 
         self.d = self.w.inverse_index.count
         self.index_word()
-        self.show_line_graph()
-        self.word_cloud()
-        self.w.cloud_button.clicked.connect(self.word_cloud)
+        self.show_bar_chart()
+        self.w.tab_stats_container.currentChanged.connect(self.word_cloud)
 
     def index_word(self):
         self.w.word_table.setRowCount(len(self.d))
@@ -27,7 +26,7 @@ class MainStatsTab:
             self.w.word_table.setItem(i, 1, QTableWidgetItem(str(self.d[k])))
         self.w.word_table.resizeColumnsToContents()
 
-    def show_line_graph(self):
+    def show_bar_chart(self):
         t20 = list(reversed(list(islice(self.d.items(), 20))))
         bs = QBarSet("")
         bs.append([c[1] for c in t20])
@@ -60,9 +59,11 @@ class MainStatsTab:
 
         cv = QChartView(c)
         cv.setRenderHint(QPainter.Antialiasing)
-        self.w.bar_graph_container.addWidget(cv)
+        self.w.bar_chart_container.addWidget(cv)
 
-    def word_cloud(self):
+    def word_cloud(self, index):
+        if index == 0:
+            return
         width, height = self.w.word_cloud.width(), self.w.word_cloud.height() - 5
         font = path.join(getcwd(), 'ui', 'src', 'font', 'Quicksand-Regular.ttf')
         wc = WordCloud(width=width, height=height, background_color='white', colormap='jet', font_path=font,

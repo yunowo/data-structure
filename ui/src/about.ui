@@ -2,13 +2,80 @@
 <ui version="4.0">
  <class>about_dialog</class>
  <widget class="QDialog" name="about_dialog">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>380</width>
-    <height>175</height>
+    <width>400</width>
+    <height>260</height>
    </rect>
+  </property>
+  <property name="palette">
+   <palette>
+    <active>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </active>
+    <inactive>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </inactive>
+    <disabled>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </disabled>
+   </palette>
   </property>
   <property name="font">
    <font>
@@ -18,11 +85,14 @@
   <property name="windowTitle">
    <string>关于</string>
   </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
   <widget class="QDialogButtonBox" name="buttonbox">
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>130</y>
+     <y>220</y>
      <width>211</width>
      <height>32</height>
     </rect>
@@ -59,12 +129,12 @@
     <rect>
      <x>150</x>
      <y>50</y>
-     <width>201</width>
-     <height>71</height>
+     <width>251</width>
+     <height>161</height>
     </rect>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Version 1.0&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Copyright (C) 2017 Yun Liu&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Version 2.0&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Copyright (C) 2017 Yun Liu&lt;/p&gt;&lt;p&gt;使用以下开源软件:&lt;/p&gt;&lt;p&gt;PyQt5, PyQtChart, matplotlib, networkx,&lt;/p&gt;&lt;p&gt;pydot, GraphViz, wordcloud&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>

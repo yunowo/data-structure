@@ -13,6 +13,70 @@
     <height>650</height>
    </rect>
   </property>
+  <property name="palette">
+   <palette>
+    <active>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </active>
+    <inactive>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </inactive>
+    <disabled>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </disabled>
+   </palette>
+  </property>
   <property name="font">
    <font>
     <family>微软雅黑</family>
@@ -29,7 +93,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabs_container">
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <property name="iconSize">
        <size>
@@ -227,6 +291,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="matches_counter">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="text">
                    <string>0 个匹配</string>
                   </property>
@@ -345,7 +415,14 @@
              </layout>
             </item>
             <item>
-             <widget class="QTextEdit" name="edit_text"/>
+             <widget class="QTabWidget" name="tab_widget">
+              <property name="currentIndex">
+               <number>-1</number>
+              </property>
+              <property name="tabsClosable">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -368,12 +445,6 @@
            <layout class="QHBoxLayout" name="top_0">
             <item>
              <widget class="QLineEdit" name="edit_index">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -401,10 +472,23 @@
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QLabel" name="matches_counter_1">
+              <property name="text">
+               <string>0 个匹配</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item>
            <widget class="QSplitter" name="bottom_0">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -661,7 +745,7 @@
                </layout>
               </widget>
               <widget class="QWidget" name="verticalLayoutWidget">
-               <layout class="QVBoxLayout" name="bar_graph_container"/>
+               <layout class="QVBoxLayout" name="bar_chart_container"/>
               </widget>
              </widget>
             </item>
@@ -689,13 +773,6 @@
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QPushButton" name="cloud_button">
-              <property name="text">
-               <string>Refresh</string>
               </property>
              </widget>
             </item>
@@ -749,7 +826,7 @@
    <addaction name="menu_0"/>
    <addaction name="menu_2"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="status_bar"/>
   <action name="action_refresh_index">
    <property name="icon">
     <iconset resource="res.qrc">

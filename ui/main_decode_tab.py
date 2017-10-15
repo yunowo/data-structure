@@ -40,7 +40,7 @@ class MainDecodeTab:
                 self.w.code_table.setItem(1, i, QTableWidgetItem(t[1]))
             self.w.code_table.resizeColumnsToContents()
             self.w.browse_decoded.setText(huffman_decode(encoded, codes))
-        self.w.statusbar.showMessage(path.join(getcwd(), 'docs', file))
+        self.w.status_bar.showMessage(path.join(getcwd(), 'docs', file))
 
     def on_file_change(self, curr):
         if not curr:
