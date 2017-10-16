@@ -3,6 +3,7 @@ import re
 from collections import OrderedDict
 from os import walk, path
 from PyQt5.QtWidgets import QProgressDialog, QApplication, QMessageBox
+from wordcloud import STOPWORDS
 
 from ui.common import dialog_flags, font
 
@@ -22,6 +23,7 @@ class InverseIndex:
         self.index = None
         self.index_lower = None
         self.count = None
+        self.count_filtered = None
 
     def progress_dialog(self):
         d = QProgressDialog(None, dialog_flags)
@@ -31,7 +33,7 @@ class InverseIndex:
         self.create(d)
 
     def create(self, dialog):
-        result, result_lower, count = {}, {}, {}
+        result, result_lower, count, count_filtered = {}, {}, {}, {}
         paths = [fn for fn in next(walk('docs'))[2]]
         paths = list(filter(lambda p: not p.startswith('.'), paths))
         paths = list(filter(lambda p: 'encoded' not in p, paths))
@@ -66,16 +68,18 @@ class InverseIndex:
                 run(words_lower, result_lower)
 
                 words_lower = map(lambda w: w.lower(), words)
-                for i,w in enumerate(words_lower):
+                for i, w in enumerate(words_lower):
                     if w not in count:
                         count[w] = 0
                     count[w] += 1
         count = dict(OrderedDict(sorted(count.items(), key=lambda t: -t[1])))
+        count_filtered = {k: v for k, v in count.items() if k not in STOPWORDS}
 
         self.index, self.index_lower, self.count = result, result_lower, count
         save_to('.inverse_index.txt', result)
         save_to('.inverse_index_lower.txt', result_lower)
         save_to('.frequency_count.txt', count)
+        save_to('.frequency_count_filtered.txt', count_filtered)
         dialog.close()
         QMessageBox.information(dialog, '检索', '检索已完成')
 
@@ -84,6 +88,7 @@ class InverseIndex:
             self.index = load_from('.inverse_index.txt')
             self.index_lower = load_from('.inverse_index_lower.txt')
             self.count = load_from('.frequency_count.txt')
+            self.count_filtered = load_from('.frequency_count_filtered.txt')
 
     def search(self, query, match_case):
         self.load_indexes()
