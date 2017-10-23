@@ -25,4 +25,4 @@ def input_dialog(title, label):
 
 
 def search_validator():
-    return QRegExpValidator(QRegExp('\w+'))
+    return QRegExpValidator(QRegExp('[\w.\'" ()]+'))

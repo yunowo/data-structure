@@ -5,10 +5,10 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QFileDialog, QMessageBox, QLineEdit, QWidget, QGridLayout, QTextEdit
 
 from algorithm.kmp import replace
+from algorithm.search_highlighter import SearchHighlighter
 from ui.common import input_dialog, selection_flags, search_validator
 from ui.encode_dialog import EncodeDialog
 from ui.file_sort_filter import setup_file_view
-from ui.search_highlighter import SearchHighlighter
 
 
 class MainEditTab:

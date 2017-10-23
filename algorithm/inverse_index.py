@@ -93,10 +93,21 @@ class InverseIndex:
     def search(self, query, match_case):
         self.load_indexes()
         if match_case:
-            if query in self.index:
-                return list(self.index[query].items())
+            return self.multi_search(query, self.index)
         else:
             query = query.lower()
-            if query in self.index_lower:
-                return list(self.index_lower[query].items())
-        return []
+            return self.multi_search(query, self.index_lower)
+
+    def multi_search(self, query, index):
+        q = set(query.split())
+        r = {}
+        for w in q:
+            if w in index:
+                for li in [(t[0], len(t[1])) for t in list(index[w].items())]:
+                    if li[0] in r:
+                        r[li[0]][w] = li[1]
+                    else:
+                        r[li[0]] = {w: li[1]}
+        r = {k: v for k, v in r.items() if len(v.items()) == len(q)}
+        k = list(r.values())
+        return r, list(k[0].keys()) if len(k) > 0 else []

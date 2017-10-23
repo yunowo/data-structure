@@ -4,8 +4,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QTreeWidgetItem, QHeaderView, QLineEdit
 
-from algorithm.inverse_index import InverseIndex
-from ui.search_highlighter import SearchHighlighter
+from algorithm.search_highlighter import SearchHighlighter
 
 
 class MainSearchTab:
@@ -18,7 +17,7 @@ class MainSearchTab:
         self.highlighter_index = SearchHighlighter(self.w.browse_text.document(), self.w.matches_counter_1)
 
         self.current_file = None
-        self.setup()
+        self.setup_headers([])
 
     def load_file(self, file):
         with open(path.join('docs', file), 'r+', encoding='utf-8') as f:
@@ -27,36 +26,44 @@ class MainSearchTab:
                 self.w.browse_text.setText(text[0])
             else:
                 self.w.browse_text.setText('')
-        self.w.statusbar.showMessage(path.join(getcwd(), 'docs', file))
+        self.w.status_bar.showMessage(path.join(getcwd(), 'docs', file))
 
     def on_file_change(self, curr, prev):
         if not curr:
             return
         self.load_file(curr.data(0, 0))
 
-    def setup(self):
-        self.w.list_results.setColumnCount(3)
-        self.w.list_results.setHeaderLabels(['     名称', '频度', '位置'])
-        for i in range(0, 2):
+    def setup_headers(self, headers):
+        self.w.list_results.setColumnCount(2 + len(headers))
+        self.w.list_results.setHeaderLabels(['     名称', '总频度', *headers])
+        for i in range(0, 1 + len(headers)):
             self.w.list_results.header().setSectionResizeMode(i, QHeaderView.ResizeToContents)
 
     def search_index(self):
         self.w.list_results.clear()
         self.w.browse_text.clear()
         match_case = self.w.checkbox_match_case_index.isChecked()
-        result = self.w.inverse_index.search(self.w.edit_index.text(), match_case)
+        result, headers = self.w.inverse_index.search(self.w.edit_index.text(), match_case)
+        self.setup_headers(headers)
         icon_2 = QIcon(':/icon/img/file_2.png')
-        for r in result:
+        for i, k in enumerate(result):
             item = SearchResultItem()
-            item.setText(0, r[0])
-            item.setText(1, str(len(r[1])))
-            item.setText(2, ', '.join(str(n) for n in r[1]))
+            item.setText(0, str(k))
             item.setIcon(0, icon_2)
+            v = result[k]
+            s = 0
+            for ii, kk in enumerate(v):
+                item.setText(ii + 2, str(v[kk]))
+                s += v[kk]
+            item.setText(1, str(s))
             self.w.list_results.invisibleRootItem().addChild(item)
         self.w.list_results.sortByColumn(1, Qt.DescendingOrder)
         self.w.list_results.currentItemChanged.connect(self.on_file_change)
         self.highlighter_index.match_case = match_case
-        self.highlighter_index.update_patterns(f'\\b{self.w.edit_index.text()}\\b')
+        q = self.w.edit_index.text()
+        if not match_case:
+            q = q.lower()
+        self.highlighter_index.update_patterns([f'\\b{w}\\b' for w in q.split()])
 
 
 class SearchResultItem(QTreeWidgetItem):

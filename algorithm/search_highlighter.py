@@ -20,6 +20,10 @@ class SearchHighlighter(QSyntaxHighlighter):
         self.results = []
 
     def update_patterns(self, p):
+        if type(p) is list:
+            self.patterns = p
+            self.rehighlight()
+            return
         if p is '':
             self.patterns = []
             self.rehighlight()

@@ -475,7 +475,7 @@ class Ui_main_window(object):
         self.button_replace.setText(_translate("main_window", "替换"))
         self.button_replace_all.setText(_translate("main_window", "替换所有"))
         self.tabs_container.setTabText(self.tabs_container.indexOf(self.tab_edit), _translate("main_window", "编辑"))
-        self.edit_index.setPlaceholderText(_translate("main_window", "关键词"))
+        self.edit_index.setPlaceholderText(_translate("main_window", "关键词 (多个关键词用空格分隔)"))
         self.checkbox_match_case_index.setText(_translate("main_window", "区分大小写"))
         self.matches_counter_1.setText(_translate("main_window", "0 个匹配"))
         self.list_results.setSortingEnabled(True)
