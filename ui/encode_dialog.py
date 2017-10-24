@@ -49,8 +49,7 @@ class EncodeDialog(QDialog, Ui_encode_dialog):
     def save_encoded(self):
         file = f'{self.filename.split(".")[0]}_encoded.txt'
         with open(path.join('docs', file), 'w+', encoding='utf-8') as f:
-            f.writelines('encoding=huffman<br />')
-            t = {c: t[1] for c, t in self.freq_map.items()}
-            f.writelines(f'codes={t} <br />')
-            f.writelines(f'encoded={self.encoded_str}<br />')
+            r = {'encoding': 'huffman', 'codes': {c: t[1] for c, t in self.freq_map.items()},
+                 'encoded': self.encoded_str}
+            f.writelines(str(r))
         QMessageBox.information(self, '编码', f'编码后的文件已保存到 {file}', QMessageBox.Ok)

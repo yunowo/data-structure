@@ -27,9 +27,10 @@ class MainDecodeTab:
                 self.w.browse_encoded.setText('')
 
             f.seek(0)
-            data = f.readlines()[0].split('<br />')
-            codes = ast.literal_eval(data[1].split('=')[1])
-            encoded = data[2].split('=')[1]
+            d = ast.literal_eval(f.readlines()[0])
+            encoding = d['encoding']
+            codes = d['codes']
+            encoded = d['encoded']
 
             sorted_codes = sorted(codes.items(), key=lambda t: len(t[1]))
             self.w.code_table.setColumnCount(len(sorted_codes))
