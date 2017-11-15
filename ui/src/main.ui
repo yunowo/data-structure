@@ -463,6 +463,16 @@
              </widget>
             </item>
             <item>
+             <widget class="QCheckBox" name="checkbox_phrase">
+              <property name="text">
+               <string>词组</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QCheckBox" name="checkbox_match_case_index">
               <property name="text">
                <string>区分大小写</string>

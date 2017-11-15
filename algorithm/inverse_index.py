@@ -90,15 +90,18 @@ class InverseIndex:
             self.count = load_from('.frequency_count.txt')
             self.count_filtered = load_from('.frequency_count_filtered.txt')
 
-    def search(self, query, match_case):
+    def search(self, query, match_case, phrase):
         self.load_indexes()
         if match_case:
-            return self.multi_search(query, self.index)
+            return self.multi_search(query, self.index, phrase)
         else:
             query = query.lower()
-            return self.multi_search(query, self.index_lower)
+            return self.multi_search(query, self.index_lower, phrase)
 
-    def multi_search(self, query, index):
+    def multi_search(self, query, index, phrase):
+        if phrase:
+            return self.phrase_search(query, index)
+
         q = set(query.split())
         r = {}
         for w in q:
@@ -111,3 +114,30 @@ class InverseIndex:
         r = {k: v for k, v in r.items() if len(v.items()) == len(q)}
         k = list(r.values())
         return r, list(k[0].keys()) if len(k) > 0 else []
+
+    def phrase_search(self, query, index):
+        q = set(query.split())
+        r = {}
+        for w in q:
+            if w in index:
+                for li in [(t[0], t[1]) for t in list(index[w].items())]:
+                    if li[0] in r:
+                        r[li[0]][w] = li[1]
+                    else:
+                        r[li[0]] = {w: li[1]}
+        r = {k: v for k, v in r.items() if len(v.items()) == len(q)}
+        q = query.split()
+        rr = {}
+        for f, v in r.items():
+            if q[0] in v:
+                for p in v[q[0]]:
+                    counter = 0
+                    for i in range(1, len(q)):
+                        if p + i in v[q[i]]:
+                            counter += 1
+                    if counter == len(q)-1:
+                        if f in rr:
+                            rr[f][query] += 1
+                        else:
+                            rr[f] = {query: 1}
+        return rr, [query]

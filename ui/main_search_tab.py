@@ -14,10 +14,11 @@ class MainSearchTab:
         self.w.edit_index.textChanged.connect(self.search_index)
         self.w.edit_index.addAction(QIcon(':/icon/img/index.png'), QLineEdit.LeadingPosition)
         self.w.checkbox_match_case_index.stateChanged.connect(self.search_index)
+        self.w.checkbox_phrase.stateChanged.connect(self.search_index)
         self.highlighter_index = SearchHighlighter(self.w.browse_text.document(), self.w.matches_counter_1)
 
         self.current_file = None
-        self.setup_headers([])
+        self.setup_headers([], False)
 
     def load_file(self, file):
         with open(path.join('docs', file), 'r+', encoding='utf-8') as f:
@@ -33,9 +34,10 @@ class MainSearchTab:
             return
         self.load_file(curr.data(0, 0))
 
-    def setup_headers(self, headers):
+    def setup_headers(self, headers, phrase):
         self.w.list_results.setColumnCount(2 + len(headers))
         self.w.list_results.setHeaderLabels(['     名称', '总频度', *headers])
+        self.w.list_results.setColumnHidden(1, phrase)
         for i in range(0, 1 + len(headers)):
             self.w.list_results.header().setSectionResizeMode(i, QHeaderView.ResizeToContents)
 
@@ -43,8 +45,9 @@ class MainSearchTab:
         self.w.list_results.clear()
         self.w.browse_text.clear()
         match_case = self.w.checkbox_match_case_index.isChecked()
-        result, headers = self.w.inverse_index.search(self.w.edit_index.text(), match_case)
-        self.setup_headers(headers)
+        phrase = self.w.checkbox_phrase.isChecked()
+        result, headers = self.w.inverse_index.search(self.w.edit_index.text(), match_case, phrase)
+        self.setup_headers(headers, phrase)
         icon_2 = QIcon(':/icon/img/file_2.png')
         for i, k in enumerate(result):
             item = SearchResultItem()
@@ -63,7 +66,10 @@ class MainSearchTab:
         q = self.w.edit_index.text()
         if not match_case:
             q = q.lower()
-        self.highlighter_index.update_patterns([f'\\b{w}\\b' for w in q.split()])
+        if phrase:
+            self.highlighter_index.update_patterns([f'\\b{q}\\b'])
+        else:
+            self.highlighter_index.update_patterns([f'\\b{w}\\b' for w in q.split()])
 
 
 class SearchResultItem(QTreeWidgetItem):
