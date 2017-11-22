@@ -7,8 +7,10 @@ if sys.platform == 'win32':
 
 options = {
     'build_exe': {
-        'includes': ['numpy.core._methods', 'numpy.lib.format', 'matplotlib.backends.backend_qt5agg', 'ui.generated'],
-        'excludes': ['gtk', 'PyQt4', 'wx', 'tkinter', 'setuptools', 'IPython', 'pytz', 'PIL']
+        'includes': ['numpy.core._methods', 'numpy.lib.format', 'matplotlib.backends.backend_qt5agg', 'appdirs',
+                     'packaging.version', 'packaging.specifiers', 'packaging.requirements',
+                     'ui.generated', 'algorithm'],
+        'excludes': ['gtk', 'PyQt4', 'wx', 'tkinter', 'setuptools', 'IPython', 'pytz']
     }
 }
 
@@ -17,8 +19,8 @@ executables = [
 ]
 
 setup(name='Data Structure',
-      version='0.1',
-      description='Edit and search',
+      version='3.0',
+      description='Edit, search and encode documents.',
       options=options,
       executables=executables
       )
