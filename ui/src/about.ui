@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>260</height>
+    <height>280</height>
    </rect>
   </property>
   <property name="palette">
@@ -92,7 +92,7 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>220</y>
+     <y>240</y>
      <width>211</width>
      <height>32</height>
     </rect>
@@ -130,11 +130,11 @@
      <x>150</x>
      <y>50</y>
      <width>251</width>
-     <height>161</height>
+     <height>191</height>
     </rect>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Version 2.0&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Copyright (C) 2017 Yun Liu&lt;/p&gt;&lt;p&gt;使用以下开源软件:&lt;/p&gt;&lt;p&gt;PyQt5, PyQtChart, matplotlib, networkx,&lt;/p&gt;&lt;p&gt;pydot, GraphViz, wordcloud&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Version 3.0&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Copyright (C) 2017 Yun Liu&lt;/p&gt;&lt;p&gt;使用以下开源软件:&lt;/p&gt;&lt;p&gt;PyQt5, PyQtChart, matplotlib, networkx,&lt;/p&gt;&lt;p&gt;pydot, GraphViz, wordcloud,&lt;/p&gt;&lt;p&gt;Material Design Icons&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>

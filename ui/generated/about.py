@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'about.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.9.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,7 +12,7 @@ class Ui_about_dialog(object):
     def setupUi(self, about_dialog):
         about_dialog.setObjectName("about_dialog")
         about_dialog.setWindowModality(QtCore.Qt.WindowModal)
-        about_dialog.resize(400, 260)
+        about_dialog.resize(400, 280)
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -38,7 +38,7 @@ class Ui_about_dialog(object):
         about_dialog.setFont(font)
         about_dialog.setModal(True)
         self.buttonbox = QtWidgets.QDialogButtonBox(about_dialog)
-        self.buttonbox.setGeometry(QtCore.QRect(150, 220, 211, 32))
+        self.buttonbox.setGeometry(QtCore.QRect(150, 240, 211, 32))
         self.buttonbox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonbox.setStandardButtons(QtWidgets.QDialogButtonBox.Ok)
         self.buttonbox.setObjectName("buttonbox")
@@ -51,7 +51,7 @@ class Ui_about_dialog(object):
         self.header.setFont(font)
         self.header.setObjectName("header")
         self.info = QtWidgets.QLabel(about_dialog)
-        self.info.setGeometry(QtCore.QRect(150, 50, 251, 161))
+        self.info.setGeometry(QtCore.QRect(150, 50, 251, 191))
         self.info.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.info.setObjectName("info")
         self.logo = QtWidgets.QLabel(about_dialog)
@@ -70,6 +70,6 @@ class Ui_about_dialog(object):
         _translate = QtCore.QCoreApplication.translate
         about_dialog.setWindowTitle(_translate("about_dialog", "关于"))
         self.header.setText(_translate("about_dialog", "面向英文文献的编辑与检索系统"))
-        self.info.setText(_translate("about_dialog", "<html><head/><body><p>Version 2.0<br/></p><p>Copyright (C) 2017 Yun Liu</p><p>使用以下开源软件:</p><p>PyQt5, PyQtChart, matplotlib, networkx,</p><p>pydot, GraphViz, wordcloud</p></body></html>"))
+        self.info.setText(_translate("about_dialog", "<html><head/><body><p>Version 3.0<br/></p><p>Copyright (C) 2017 Yun Liu</p><p>使用以下开源软件:</p><p>PyQt5, PyQtChart, matplotlib, networkx,</p><p>pydot, GraphViz, wordcloud,</p><p>Material Design Icons</p></body></html>"))
 
 from . import res_rc
