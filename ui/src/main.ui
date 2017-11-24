@@ -455,7 +455,7 @@
                <bool>true</bool>
               </property>
               <property name="placeholderText">
-               <string>关键词 (多个关键词用空格分隔)</string>
+               <string>关键词组</string>
               </property>
               <property name="clearButtonEnabled">
                <bool>true</bool>

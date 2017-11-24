@@ -46,6 +46,7 @@ class MainSearchTab:
         self.w.browse_text.clear()
         match_case = self.w.checkbox_match_case_index.isChecked()
         phrase = self.w.checkbox_phrase.isChecked()
+        self.w.edit_index.setPlaceholderText("关键词 (多个关键词用空格分隔)" if not phrase else "关键词组")
         result, headers = self.w.inverse_index.search(self.w.edit_index.text(), match_case, phrase)
         self.setup_headers(headers, phrase)
         icon_2 = QIcon(':/icon/img/file_2.png')
