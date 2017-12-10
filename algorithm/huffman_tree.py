@@ -1,3 +1,5 @@
+from pathlib import Path
+from os import path, getcwd
 import matplotlib
 
 matplotlib.use('Qt5Agg')
@@ -36,7 +38,11 @@ class HuffmanTree:
         labels[id(self.root)] = self.root.freq
         traverse(self.root)
 
-        pos = nx.nx_pydot.graphviz_layout(G, prog='dot', root=self.root)
+        prog = 'dot'
+        # A bundled GraphViz for Windows
+        if Path(getcwd(), 'graphviz\\bin\\dot.exe').is_file():
+            prog = path.join(getcwd(), 'graphviz\\bin\\dot.exe')
+        pos = nx.nx_pydot.graphviz_layout(G, prog=prog, root=self.root)
         nx.draw(G, pos=pos)
         nx.draw_networkx_nodes(G, pos, node_size=500, node_color='#ef5350')
         nx.draw_networkx_nodes(G, pos, nodelist=leafs, node_size=500, node_color='#29b6f6')
