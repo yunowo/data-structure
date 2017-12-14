@@ -1,3 +1,6 @@
+import shutil
+from os import getcwd
+from pathlib import Path
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
 from algorithm.inverse_index import InverseIndex
@@ -13,6 +16,10 @@ class MainWindow(QMainWindow, Ui_main_window):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
+
+        if not Path(getcwd(), 'docs').is_dir():
+            shutil.copytree('requirements/第2题-文献数据', 'docs')
+            InverseIndex().progress_dialog()
 
         self.inverse_index = InverseIndex()
         self.inverse_index.load_indexes()
