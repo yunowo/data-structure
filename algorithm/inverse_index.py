@@ -131,11 +131,11 @@ class InverseIndex:
         for f, v in r.items():
             if q[0] in v:
                 for p in v[q[0]]:
-                    counter = 0
+                    counter = 1
                     for i in range(1, len(q)):
                         if p + i in v[q[i]]:
                             counter += 1
-                    if counter == len(q)-1:
+                    if counter == len(q):
                         if f in rr:
                             rr[f][query] += 1
                         else:
