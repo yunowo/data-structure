@@ -184,6 +184,7 @@ class TabAdapter:
     def current_changed(self, index):
         self.current_index = index
         self.host.search()
+        self.w.status_bar.showMessage(path.join(getcwd(), 'docs', self.tab_widget.tabText(index)))
 
     def double_clicked(self, index):
         if self.last_is_temp and index == self.current_index:
