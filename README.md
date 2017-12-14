@@ -4,7 +4,7 @@ An editor and search engine for English documents.
 ## Prerequisites
 - Latest Windows, macOS or Linux
 - Python 3.6 and `pip install -r requirements.txt`
-- GraphViz 2.38
+- Graphviz 2.38
 
 ## Usage
 Run `python app.py`.
