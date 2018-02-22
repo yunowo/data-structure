@@ -1,5 +1,6 @@
 import sys
 
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QDesktopWidget
 
@@ -20,6 +21,7 @@ def setup_hook():
 if __name__ == '__main__':
     setup_hook()
 
+    QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon(':/icon/img/logo.png'))
     w = MainWindow()
